@@ -7,7 +7,7 @@ namespace Core.UI
         public event Action Settings;
         public event Action ExitGame;
 
-        public void OpenSettings()
+        public void OpenSettings_UnityEditor()
         {
             MenuController?.SwitchState(MenuStates.Settings);
             Settings?.Invoke();

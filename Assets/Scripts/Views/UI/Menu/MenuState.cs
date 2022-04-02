@@ -12,7 +12,7 @@ namespace Core.UI
         }
         public void GetBack()
         {
-            MenuController.CloseLastWindow();
+            MenuController.GetBack();
         }
     }
 }

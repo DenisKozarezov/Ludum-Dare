@@ -4,9 +4,9 @@ namespace Core.Services
 {
     public class GameManager : MonoBehaviour
     {
-        public void StartGame()
+        private async void Start()
         {
-
+            await CameraExtensions.Fade(FadeMode.Out);
         }
     }
 }
