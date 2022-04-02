@@ -1,28 +1,63 @@
 using System;
 using UnityEngine;
 using Core.Models;
+using Core.Units.State;
 
 namespace Core.Units
 {
     public abstract class UnitView : MonoBehaviour
     {
         [SerializeField]
-        private UnitModel _unitModel;
+        private UnitModel _unitData;
         [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private RangeCheckingSystem _rangeCheckingSystem;
 
-        public bool Dead;
+        public UnitModel UnitData => _unitData;
 
-        public UnitModel UnitModel => _unitModel;
+        // ============ ANIMATION KEYS ============
+        protected const string IDLE_KEY = "Idle";
+        protected const string ATTACK_KEY = "Attack";
+        protected const string DIED_KEY = "Death";
+        // ======================================== 
+
+        // ============== STATUSES ================
+        public bool CanAttack { get; protected set; } = true;
+        public bool Dead { get; private set; }
+        public bool Invulnerable { get; set; }
+        // ========================================
+
+        // =============== COMBAT =================
+        public UnitView Target { get; private set; }
+        // ========================================
+
+        protected UnitStateMachine StateMachine { get; set; }
 
         public event Action<UnitRecievedDamageArgs> RecievedDamage;
         public event Action<UnitView> Died;
 
+        protected abstract void Awake();
         protected abstract void Start();
-        protected abstract void Update();
 
+        public virtual UnitState CreateState()
+        {
+            return new UnitState
+            {
+                MaxHealth = UnitData.Stats.MaxHealth,
+                Health = UnitData.Stats.MaxHealth,                
+            };
+        }
+
+        public void Disable()
+        {
+            CanAttack = false;
+            Invulnerable = true;
+            Target = null;
+        }
         public void Hit(ushort damage, UnitView source = null)
         {
+            if (Dead || Invulnerable) return;
             RecievedDamage?.Invoke(new UnitRecievedDamageArgs
             {
                 Target = this,
@@ -32,7 +67,19 @@ namespace Core.Units
         }
         public void Kill(UnitView source = null)
         {
+            if (Dead) return;
+            StateMachine.SwitchState<DeadState>();
             Died?.Invoke(source);
+        }
+        public void Taunt(UnitView target)
+        {
+            if (target.Dead) return; 
+            Target = target;
+            StateMachine.SwitchState<PursuitState>();
+        }
+        public void Translate(Vector2 direction)
+        {
+            transform.Translate(direction * UnitData.Stats.MovementSpeed * Time.deltaTime);
         }
     }
 }

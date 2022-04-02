@@ -16,9 +16,9 @@ namespace Core.Units
         public float Agility;
         [Min(0)]
         public float Intelligence;
-        [Min(0)]
-        public float Speed;
-        [Min(0)]
+        [Range(0f, 5f)]
+        public float MovementSpeed;
+        [Range(0f, 10f)]
         public float AttackSpeed;
         [Min(0)]
         public float HpRegeneration;
@@ -32,7 +32,7 @@ namespace Core.Units
                 Strength = first.Strength + second.Strength,
                 Agility = first.Agility + second.Agility,
                 Intelligence = first.Intelligence + second.Intelligence,
-                Speed = first.Speed + second.Speed,
+                MovementSpeed = first.MovementSpeed + second.MovementSpeed,
                 AttackSpeed = first.AttackSpeed + second.AttackSpeed,
                 HpRegeneration = first.HpRegeneration + second.HpRegeneration,
             };
@@ -46,7 +46,7 @@ namespace Core.Units
                 Strength = first.Strength * value,
                 Agility = first.Agility * value,
                 Intelligence = first.Intelligence * value,
-                Speed = first.Speed * value,
+                MovementSpeed = first.MovementSpeed * value,
                 AttackSpeed = first.AttackSpeed * value,
                 HpRegeneration = first.HpRegeneration * value,
             };

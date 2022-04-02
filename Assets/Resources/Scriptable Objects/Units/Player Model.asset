@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f6f42ecd1c7d844b4969e6bbc64ed3, type: 3}
+  m_Name: Player Model
+  m_EditorClassIdentifier: 
+  _id: 0
+  _displayName: Player Model
+  _description: 
+  _unitType: 1
+  _specialization: 2
+  _raceType: 8
+  _owner: 2
+  _prefabPath: Prefabs/Units/Main Hero/Main Hero
+  _stats:
+    MaxHealth: 100
+    Damage: 0
+    Strength: 0
+    Agility: 0
+    Intelligence: 0
+    MovementSpeed: 1
+    AttackSpeed: 2.31
+    HpRegeneration: 0
