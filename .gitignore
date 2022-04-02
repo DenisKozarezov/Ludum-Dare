@@ -23,6 +23,9 @@
 .vs/
 .vscode/
 
+# User Setting
+UserSettings/
+
 # Gradle cache directory
 .gradle/
 

@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.Events;
 
 public class EnergyDistribution : MonoBehaviour
 {
     public Energy energy = new Energy();
+    public Slider percentageSlider;
+    public Slider spentSlider;
     public float timer = 1f;
     public float maxTimer = 1f;
-    public TextMeshProUGUI energyText;
-    public TextMeshProUGUI percentage;
-    public Slider percentageSlider;
     public float targetEnergyCount = 1000f;
 
-    private void Start() {
+    public UnityEvent OnValueChange;
+    public UnityEvent Win;
+
+    private void Start() 
+    {
         percentageSlider.value = 50f;
-        energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
-        percentage.text = $"Army: {energy.armyPercentage}%\nEnergy: {energy.energyPercentage}%";
+        OnValueChange?.Invoke();
     }
 
-    private void Update() {
+    private void Update() 
+    {
         if (timer > 0) timer -= Time.deltaTime;
         else
         {
@@ -26,28 +29,27 @@ public class EnergyDistribution : MonoBehaviour
             {
                 energy.count -= energy.spentPerSecond;
             }
+            Debug.Log(energy.count);
             energy.count += energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f);
             timer = maxTimer;
-            energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
+            OnValueChange?.Invoke();
+            spentSlider.maxValue = energy.count;
             if (energy.count >= targetEnergyCount) 
             {
-                Debug.Log("Win!");
+                Win?.Invoke();
             }
         }
     }
 
-    public void Spent(float increment)
+    public void Spent()
     {
-        if (energy.spentPerSecond > 0 || increment > 0) {
-            energy.spentPerSecond += increment;
-            energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
-        }
+        energy.spentPerSecond = spentSlider.value;
     }
 
     public void DistributeEnergy() 
     {
         energy.armyPercentage = percentageSlider.value;
         energy.energyPercentage = 100f - percentageSlider.value;
-        percentage.text = $"Army: {energy.armyPercentage}%\nEnergy: {energy.energyPercentage}%";
+        OnValueChange?.Invoke();
     }
 }
