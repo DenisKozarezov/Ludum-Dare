@@ -1,7 +1,7 @@
-using Core.Models;
+using Core.Units;
 using UnityEngine;
 
-namespace Core.Units
+namespace Core.Models
 {
     public abstract class UnitFactory<T> : ScriptableObject where T : UnitModel
     {
