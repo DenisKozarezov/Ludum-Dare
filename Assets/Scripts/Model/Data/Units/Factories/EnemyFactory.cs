@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Core.Models;
 
-namespace Core.Units
+namespace Core.Models
 {
     [CreateAssetMenu(menuName = "Configuration/Units/Create Enemy Factory")]
     public class EnemyFactory : UnitFactory<EnemyModel>
@@ -10,9 +9,9 @@ namespace Core.Units
         [SerializeField]
         private List<EnemyModel> _enemies;
 
-        protected override EnemyModel GetConfig<Unit>()
+        protected override EnemyModel GetConfig<T>()
         {
-            return _enemies.Find(x => x is Unit);
+            return _enemies.Find(x => x is T);
         }
 
         protected override EnemyModel GetRandomConfig()

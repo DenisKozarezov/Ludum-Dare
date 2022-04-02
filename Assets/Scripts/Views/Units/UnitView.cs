@@ -1,6 +1,6 @@
-using Core.Models;
 using System;
 using UnityEngine;
+using Core.Models;
 
 namespace Core.Units
 {
@@ -8,6 +8,8 @@ namespace Core.Units
     {
         [SerializeField]
         private UnitModel _unitModel;
+        [SerializeField]
+        private Animator _animator;
 
         public bool Dead;
 

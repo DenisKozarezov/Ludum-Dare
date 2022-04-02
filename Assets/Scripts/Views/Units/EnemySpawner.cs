@@ -1,8 +1,9 @@
 using UnityEngine;
+using Core.Models;
 
 namespace Core.Units
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, IUnitSpawner
     {
         [Header("Options")]
         [SerializeField, Min(0)]
@@ -17,10 +18,6 @@ namespace Core.Units
         private float _timer;
         private byte _counter;
 
-        private void Start()
-        {
-            EnableSpawn(true);
-        }
         private void Update()
         {
             if (_spawning || _counter >= _spawnMaxCount) return;
@@ -34,12 +31,12 @@ namespace Core.Units
             }
         }
 
-        private UnitView SpawnUnit()
+        public UnitView SpawnUnit()
         {
             return _factory.GetRandomUnit();
         }
 
-        public void EnableSpawn(bool isSpawning)
+        public void Enable(bool isSpawning)
         {
             _spawning = isSpawning;
         }
