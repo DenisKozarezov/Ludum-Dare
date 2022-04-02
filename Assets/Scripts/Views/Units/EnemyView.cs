@@ -1,15 +1,28 @@
+using Core.Services;
+using Core.Units.State;
+
 namespace Core.Units
 {
-    public class EnemyView : UnitView
+    public class EnemyView : UnitView, IEnemy
     {
+        public bool Taunted { get; private set; }
+
+        protected override void Awake()
+        {
+            StateMachine = new UnitStateMachine(this);
+        }
         protected override void Start()
         {
-            throw new System.NotImplementedException();
-        }
+            if (UnitData == null) return;
+            UnitsManager.RegisterUnit(this);
 
-        protected override void Update()
+            Taunt(PlayerView.Instance);
+        }
+        private void Update()
         {
-            throw new System.NotImplementedException();
+            if (Dead) return;
+
+            StateMachine.CurrentState.Update();
         }
     }
 }

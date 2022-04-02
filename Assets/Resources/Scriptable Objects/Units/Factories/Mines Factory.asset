@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4987c2a7db5491c44875d6798b753c92, type: 3}
+  m_Name: Mines Factory
+  m_EditorClassIdentifier: 
+  _units:
+  - {fileID: 11400000, guid: 1cc47cb92a94da343be7927329f0949f, type: 2}
+  - {fileID: 11400000, guid: 75df70d6d1e521a42a796e5950a119b0, type: 2}
+  - {fileID: 11400000, guid: 0764675de8e73244b988a3b217703d39, type: 2}
