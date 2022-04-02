@@ -242,10 +242,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b89f4fbc5df104da173f46abb673b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  percentageSlider: {fileID: 1478275727}
+  spentSlider: {fileID: 1810907220}
   timer: 1
   maxTimer: 1
-  percentageSlider: {fileID: 1478275727}
   targetEnergyCount: 1000
+  OnValueChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1206104105}
+        m_TargetAssemblyTypeName: EnergyUI, Assembly-CSharp
+        m_MethodName: UpdateValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Win:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1206104104
 Transform:
   m_ObjectHideFlags: 0
@@ -279,6 +298,17 @@ MonoBehaviour:
 --- !u!114 &1478275727 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+  m_PrefabInstance: {fileID: 3829461194361447655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1810907220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2007412966, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
   m_PrefabInstance: {fileID: 3829461194361447655}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -422,6 +452,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2007412966, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1206104103}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
