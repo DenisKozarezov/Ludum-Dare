@@ -26,6 +26,7 @@ namespace Core.Units
             else
             {
                 var unit = SpawnUnit();
+                unit.transform.position = transform.position;
                 _counter++;
                 _timer = _spawnRate;
             }

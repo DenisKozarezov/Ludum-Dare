@@ -16,7 +16,7 @@ namespace Core.Models
 
         protected override EnemyModel GetRandomConfig()
         {
-            return _enemies[Random.Range(0, _enemies.Count - 1)];
+            return _enemies[Random.Range(0, _enemies.Count)];
         }
     }
 }
