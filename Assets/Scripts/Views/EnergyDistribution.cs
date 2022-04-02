@@ -7,15 +7,11 @@ public class EnergyDistribution : MonoBehaviour
     public Energy energy = new Energy();
     public float timer = 1f;
     public float maxTimer = 1f;
-    public TextMeshProUGUI energyText;
-    public TextMeshProUGUI percentage;
     public Slider percentageSlider;
     public float targetEnergyCount = 1000f;
 
     private void Start() {
-        percentageSlider.value = 50f;
-        energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
-        percentage.text = $"Army: {energy.armyPercentage}%\nEnergy: {energy.energyPercentage}%";
+        percentageSlider.value = 50f;        
     }
 
     private void Update() {
@@ -28,7 +24,6 @@ public class EnergyDistribution : MonoBehaviour
             }
             energy.count += energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f);
             timer = maxTimer;
-            energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
             if (energy.count >= targetEnergyCount) 
             {
                 Debug.Log("Win!");
@@ -40,7 +35,6 @@ public class EnergyDistribution : MonoBehaviour
     {
         if (energy.spentPerSecond > 0 || increment > 0) {
             energy.spentPerSecond += increment;
-            energyText.text = $"Energy: {energy.count}\nIncome({maxTimer}s): {energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f)}({energy.incomePerSecond})\nSpent({maxTimer}s): {energy.spentPerSecond}";
         }
     }
 
@@ -48,6 +42,5 @@ public class EnergyDistribution : MonoBehaviour
     {
         energy.armyPercentage = percentageSlider.value;
         energy.energyPercentage = 100f - percentageSlider.value;
-        percentage.text = $"Army: {energy.armyPercentage}%\nEnergy: {energy.energyPercentage}%";
     }
 }

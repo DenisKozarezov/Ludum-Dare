@@ -222,6 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206104104}
   - component: {fileID: 1206104103}
+  - component: {fileID: 1206104105}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -243,8 +244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 1
   maxTimer: 1
-  energyText: {fileID: 130815238}
-  percentage: {fileID: 204880020}
   percentageSlider: {fileID: 1478275727}
   targetEnergyCount: 1000
 --- !u!4 &1206104104
@@ -262,6 +261,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1206104105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206104102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9191425dc902ab48b773eb2bc5dbea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyDistribution: {fileID: 1206104103}
+  energyTextMesh: {fileID: 130815238}
+  percentage: {fileID: 204880020}
 --- !u!114 &1478275727 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
@@ -384,10 +398,30 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 941292522, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 941292522, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1206104103}
+    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -480,13 +514,5 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1994542244}
-    - target: {fileID: 8701551807398611944, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1206104103}
-    - target: {fileID: 9035776057624625386, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1206104103}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
