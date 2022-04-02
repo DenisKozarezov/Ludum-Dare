@@ -19,4 +19,11 @@ namespace Core.Units
         Elf,
         Undead,
     }
+    public enum Specialization : byte
+    {
+        Default,
+        Warrior,
+        Mage,
+        Archer,
+    }
 }

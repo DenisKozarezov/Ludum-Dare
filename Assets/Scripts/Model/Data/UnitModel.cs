@@ -4,8 +4,7 @@ using Core.Units;
 
 namespace Core.Models
 {
-    [CreateAssetMenu(menuName = "Configuration/Units/Create Unit")]
-    public class UnitModel : ScriptableObject, IEquatable<UnitModel>
+    public abstract class UnitModel : ScriptableObject, IEquatable<UnitModel>
     {
         [Header("Common Characteristics")]
         [SerializeField]
@@ -16,6 +15,13 @@ namespace Core.Models
         private string _description;
         [SerializeField]
         private UnitType _unitType;
+        [SerializeField]
+        private Specialization _specialization;
+        [SerializeField]
+        private RaceType _raceType;
+
+        [Space, SerializeField]
+        private string _prefabPath;
 
         [Header("Combat Characteristics")]
         [SerializeField]
@@ -25,7 +31,10 @@ namespace Core.Models
         public string DisplayName => _displayName;
         public string Description => _description;
         public UnitType UnitType => _unitType;
-        public UnitStats Stats => _stats;
+        public Specialization Specialization => _specialization;
+        public RaceType RaceType => _raceType;
+        public string PrefabPath => _prefabPath;
+        public UnitStats Stats => _stats;       
 
         protected virtual void OnValidate()
         {

@@ -11,6 +11,8 @@ namespace Core.Units
 
         public bool Dead;
 
+        public UnitModel UnitModel => _unitModel;
+
         public event Action<UnitRecievedDamageArgs> RecievedDamage;
         public event Action<UnitView> Died;
 

@@ -4,7 +4,7 @@ namespace Core.Units
     {
         public UnitView Target;
         public UnitView Source;
-        public ushort Damage;
+        public float Damage;
     }
 
     public class UnitStatuses

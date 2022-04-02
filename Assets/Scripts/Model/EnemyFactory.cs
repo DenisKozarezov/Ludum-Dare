@@ -1,14 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Core.Models;
 
-namespace Core.Models
+namespace Core.Units
 {
-    [CreateAssetMenu(menuName = "Configuration/Units/Create Factory")]
-    public class EnemyFactory : ScriptableObject
+    [CreateAssetMenu(menuName = "Configuration/Units/Create Enemy Factory")]
+    public class EnemyFactory : UnitFactory<EnemyModel>
     {
         [SerializeField]
-        private UnitModel[] _units;
+        private List<EnemyModel> _enemies;
 
-        public IReadOnlyCollection<UnitModel> Units => _units;
+        protected override EnemyModel GetConfig<Unit>()
+        {
+            return _enemies.Find(x => x is Unit);
+        }
+
+        protected override EnemyModel GetRandomConfig()
+        {
+            return _enemies[Random.Range(0, _enemies.Count - 1)];
+        }
     }
 }
