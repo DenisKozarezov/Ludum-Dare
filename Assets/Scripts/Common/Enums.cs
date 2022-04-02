@@ -40,7 +40,7 @@ namespace Core.UI
     public enum MenuStates
     {
         Menu,
-        Options,
+        Settings,
         Credits,
     }
 }
