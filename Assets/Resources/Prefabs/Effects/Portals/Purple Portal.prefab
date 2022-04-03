@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9c23ef296123c49a791a2099c0afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 5726346291201414198}
   _spawnRate: 1.5
   _spawnMaxCount: 20
-  _factory: {fileID: 11400000, guid: ca0cdb6e7ecb9534eae3844f3488ec4a, type: 2}
+  _factory: {fileID: 11400000, guid: a3ae9eb530f5b1c41bd0144cdef11078, type: 2}

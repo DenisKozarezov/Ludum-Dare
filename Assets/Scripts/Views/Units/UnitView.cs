@@ -6,7 +6,7 @@ using Core.Units.State;
 
 namespace Core.Units
 {
-    public abstract class UnitView : MonoBehaviour
+    public class UnitView : MonoBehaviour
     {
         [SerializeField]
         private UnitModel _unitData;
@@ -33,6 +33,7 @@ namespace Core.Units
 
         // =============== COMBAT =================
         private bool _alreadyHit;
+        public bool Taunted { get; private set; }
         public UnitView Target { get; private set; }
         // ========================================
 
@@ -41,8 +42,33 @@ namespace Core.Units
         public event Action<UnitRecievedDamageArgs> RecievedDamage;
         public event Action Died;
 
-        protected abstract void Awake();
-        protected abstract void Start();
+        protected virtual void Awake()
+        {
+            StateMachine = new UnitStateMachine(this);
+            _rangeCheckingSystem.SetRange(Constants.AggressionRadius);
+            _rangeCheckingSystem.EnemyDetected += OnEnemyDetected;
+            _rangeCheckingSystem.EnableChecking(true);
+        }
+        protected virtual void Start()
+        {
+            if (UnitData == null) return;
+            StateMachine.SwitchState<WanderState>();
+        }
+        private void Update()
+        {
+            if (Dead) return;
+
+            StateMachine.CurrentState?.Update();
+        }
+
+        private void OnEnemyDetected(UnitView target)
+        {
+            if (!Taunted)
+            {
+                _rangeCheckingSystem.EnableChecking(false);
+                Taunt(target);
+            }
+        }
 
         public virtual UnitState CreateState()
         {
@@ -75,17 +101,15 @@ namespace Core.Units
         {
             _alreadyHit = true;
             Color defaultColor = _spriteRenderer.material.color;
-            for (int i = 0; i < 5; i++)
-            {
-                _spriteRenderer.material.color = Color.red;
-                yield return new WaitForSeconds(0.5f);
-                _spriteRenderer.material.color = defaultColor;
-            }
+            _spriteRenderer.material.color = Color.red;
+            yield return new WaitForSeconds(1f);
+            _spriteRenderer.material.color = defaultColor;
             _alreadyHit = false;
         }
         public void Kill()
         {
             if (Dead) return;
+            StopAllCoroutines();
             StateMachine.SwitchState<DeadState>();
             Died?.Invoke();
         }
@@ -105,6 +129,11 @@ namespace Core.Units
             if (!CanAttack) return;
             target.Hit(UnitData.Stats.Damage, this);
             StartCoroutine(AttackCoroutine());
+        }
+        public void Wander()
+        {
+            _rangeCheckingSystem.EnableChecking(true);
+            StateMachine.SwitchState<WanderState>();
         }
         private IEnumerator AttackCoroutine()
         {

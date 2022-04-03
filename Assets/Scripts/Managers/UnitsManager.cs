@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Core.Units;
 using Core.Models;
+using UnityEngine.Events;
 
 namespace Core.Services
 {
@@ -16,6 +17,9 @@ namespace Core.Services
 
         private Lazy<UnitModel[]> AllUnits;
         private Dictionary<UnitView, UnitState> Units = new Dictionary<UnitView, UnitState>();
+
+        [Space]
+        public UnityEvent AllyUnitCreated;
 
         private void Awake()
         {
@@ -111,6 +115,24 @@ namespace Core.Services
         {
             if (Units.ContainsKey(unit)) return;
             Units.Add(unit, unit.CreateState());
+        }
+
+        public static UnitView GetNearestEnemy(UnitView target)
+        {
+            float max = float.MinValue;
+            UnitView result = null;
+            foreach (var unit in _instance.Units.Keys.Where(x => x.UnitData.Owner != target.UnitData.Owner))
+            {
+                float distance = (unit.transform.position - target.transform.position).sqrMagnitude;
+                if (distance < max)
+                {
+                    max = distance;
+                    result = unit;
+                }
+            }
+
+            if (max <= Constants.AggressionRadius) return result;
+            else return null;
         }
     }
 }

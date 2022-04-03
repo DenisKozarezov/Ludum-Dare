@@ -8,6 +8,10 @@ namespace Core.Services
         [SerializeField]
         private MenuController _gameOverController;
 
+        private void Awake()
+        {
+            _gameOverController.Enable = false;
+        }
         public void ShowGameOver()
         {
             _gameOverController.SwitchState(MenuStates.Menu);
