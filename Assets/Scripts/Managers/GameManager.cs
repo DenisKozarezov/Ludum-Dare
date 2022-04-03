@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Core.Services
 {
@@ -8,7 +10,12 @@ namespace Core.Services
         [SerializeField]
         private Transform _playerSpawn;
 
-        private event Action GameOver;
+        [Header("Options")]
+        [SerializeField, Min(0)]
+        private float _preparationTime;
+
+        public UnityEvent GameStart;
+        public UnityEvent GameOver;
 
         private async void Start()
         {
@@ -16,11 +23,14 @@ namespace Core.Services
             await CameraExtensions.Fade(FadeMode.Out);
         }
 
-        private void StartGame()
+        private async void StartGame()
         {
             var player = UnitsManager.InstantiateUnit(0);
             player.Died += GameOverFunction;
             player.transform.position = _playerSpawn.transform.position;
+
+            await Task.Delay(TimeSpan.FromSeconds(_preparationTime));
+            GameStart?.Invoke();
         }
 
         private void GameOverFunction()
