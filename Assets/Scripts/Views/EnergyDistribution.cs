@@ -29,7 +29,6 @@ public class EnergyDistribution : MonoBehaviour
             {
                 energy.count -= energy.spentPerSecond;
             }
-            Debug.Log(energy.count);
             energy.count += energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f);
             timer = maxTimer;
             OnValueChange?.Invoke();

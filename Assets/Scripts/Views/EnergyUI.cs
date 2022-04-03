@@ -14,6 +14,7 @@ public class EnergyUI : MonoBehaviour
     void Start()
     {
         if (energyDistribution.OnValueChange == null) energyDistribution.OnValueChange = new UnityEvent();
+        UpdateValues();
         energyDistribution.OnValueChange.AddListener(UpdateValues);
     }
 
