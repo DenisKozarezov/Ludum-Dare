@@ -21,11 +21,9 @@ MonoBehaviour:
   _owner: 2
   _prefabPath: Prefabs/Units/Main Hero/Main Hero
   _stats:
-    MaxHealth: 150
+    MaxHealth: 1000
     Damage: 0
-    Strength: 0
-    Agility: 0
-    Intelligence: 0
     MovementSpeed: 1
     AttackSpeed: 2.31
+    Cost: 0
     HpRegeneration: 0

@@ -10,7 +10,9 @@ public class EnergyDistribution : MonoBehaviour
         get { return this.GetType().GetProperty(propertyName).GetValue(this, null); }
         set { this.GetType().GetProperty(propertyName).SetValue(this, value, null); }
     }
-    
+
+    private bool _enabled;
+
     public Slider percentageSlider;
     
     public int baseDivision = 100;
@@ -37,11 +39,12 @@ public class EnergyDistribution : MonoBehaviour
 
     void Update() 
     {
+        if (!_enabled) return;
+
         if (timer > 0) timer -= Time.deltaTime;
         else
         {
             coeff = (int)count / baseDivision;
-            print(coeff);
             count = Math.Min(count+coeff*incomePerPercent*energyPercentage, energyLimit);
             timer = maxTimer;
             OnValueChange?.Invoke();
@@ -62,5 +65,10 @@ public class EnergyDistribution : MonoBehaviour
         armyPercentage = percentageSlider.value;
         energyPercentage = 100f - percentageSlider.value;
         OnValueChange?.Invoke();
+    }
+
+    public void Enable(bool isEnabled)
+    {
+        _enabled = isEnabled;
     }
 }

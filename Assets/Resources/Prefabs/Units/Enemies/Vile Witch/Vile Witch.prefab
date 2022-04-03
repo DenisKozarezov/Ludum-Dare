@@ -119,7 +119,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &6721882548408347966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitData: {fileID: 11400000, guid: 0764675de8e73244b988a3b217703d39, type: 2}
   _animator: {fileID: 6328999024646570278}
+  _rigibody: {fileID: 7169820999682458923}
   _spriteRenderer: {fileID: 3729767517524136899}
   _rangeCheckingSystem: {fileID: 2653713022475480681}
 --- !u!114 &2653713022475480681

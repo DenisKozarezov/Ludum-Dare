@@ -22,7 +22,7 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Enemies/Earth Elemental/Earth Elemental
   _stats:
     MaxHealth: 100
-    Damage: 1
+    Damage: 40
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1

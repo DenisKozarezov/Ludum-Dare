@@ -30,6 +30,8 @@ namespace Core.Units.State
         }
         public override void Update()
         {
+            if (Unit.Dead) return;
+
             if (ReachedTarget())
             {
                 if (Unit.CanAttack) Unit.Attack(Unit.Target);
