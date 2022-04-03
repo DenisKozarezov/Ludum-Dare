@@ -10,7 +10,7 @@ public class ButtonListener : MonoBehaviour
 
     public void createUpgrade()
     {
-        upgrade = new Upgrade(operatorType, parameter, parameterValue);
+        upgrade = new Upgrade("Upgrade name", "Upgrade desc", operatorType, parameter, parameterValue);
         upgrade.UpgradeValue(ref energyDistribution);
     }
 }
