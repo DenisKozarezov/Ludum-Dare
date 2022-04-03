@@ -44,3 +44,8 @@ namespace Core.UI
         Credits,
     }
 }
+
+namespace Core
+{
+    public enum FadeMode : byte { In, Out }
+}

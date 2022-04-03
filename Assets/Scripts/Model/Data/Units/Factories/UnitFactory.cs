@@ -11,14 +11,12 @@ namespace Core.Models
         public UnitView GetUnit<Unit>() where Unit : T
         {
             var config = GetConfig<T>();
-            var unit = Instantiate(Resources.Load<GameObject>(config.PrefabPath));
-            return unit.GetComponent<UnitView>();
+            return Services.UnitsManager.InstantiateUnit(config.ID);
         }
         public UnitView GetRandomUnit()
         {
             var config = GetRandomConfig();
-            var unit = Instantiate(Resources.Load<GameObject>(config.PrefabPath));
-            return unit.GetComponent<UnitView>();
+            return Services.UnitsManager.InstantiateUnit(config.ID);
         }
     }
 }

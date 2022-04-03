@@ -18,9 +18,17 @@ namespace Core.Units
         private float _timer;
         private byte _counter;
 
+        private void Start()
+        {
+            Enable(true);
+        }
         private void Update()
         {
-            if (_spawning || _counter >= _spawnMaxCount) return;
+            if (!_spawning || _counter >= _spawnMaxCount)
+            {
+                if (_spawning) Enable(false);
+                return;
+            }
 
             if (_timer > 0) _timer -= Time.deltaTime;
             else
@@ -29,7 +37,7 @@ namespace Core.Units
                 unit.transform.position = transform.position;
                 _counter++;
                 _timer = _spawnRate;
-            }
+            }           
         }
 
         public UnitView SpawnUnit()
