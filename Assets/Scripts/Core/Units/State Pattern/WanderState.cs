@@ -34,6 +34,8 @@ namespace Core.Units.State
         }
         public override void Update()
         {
+            if (Unit.Dead) return;
+
 #if UNITY_EDITOR
             Debug.DrawLine(Unit.transform.position, _currentPoint, Color.yellow);
 #endif

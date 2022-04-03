@@ -22,7 +22,7 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Enemies/Skilled Battlemage/Skilled Battlemage
   _stats:
     MaxHealth: 150
-    Damage: 2
+    Damage: 40
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1

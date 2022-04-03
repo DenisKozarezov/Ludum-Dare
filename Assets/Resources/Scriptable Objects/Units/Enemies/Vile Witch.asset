@@ -22,7 +22,7 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Enemies/Vile Witch/Vile Witch
   _stats:
     MaxHealth: 200
-    Damage: 3
+    Damage: 40
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1
