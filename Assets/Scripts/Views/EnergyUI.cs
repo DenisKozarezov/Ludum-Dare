@@ -7,7 +7,6 @@ public class EnergyUI : MonoBehaviour
 {
     public EnergyDistribution energyDistribution;
     public TextMeshProUGUI energyTextMesh;
-    public TextMeshProUGUI spentTextMesh;
     public TextMeshProUGUI percentage;
     
     private float income = 0;
@@ -21,9 +20,8 @@ public class EnergyUI : MonoBehaviour
 
     public void UpdateValues()
     {
-        income = energyDistribution.energy.incomePerSecond + energyDistribution.energy.efficiency * (energyDistribution.energy.spentPerSecond*(energyDistribution.energy.energyPercentage / 100f));
-        energyTextMesh.text = String.Format(EnergyText.EnergyCount, energyDistribution.energy.count, energyDistribution.maxTimer, income, energyDistribution.energy.incomePerSecond, energyDistribution.maxTimer, energyDistribution.energy.spentPerSecond);
-        percentage.text = String.Format(EnergyText.PercentageCount, energyDistribution.energy.armyPercentage, energyDistribution.energy.energyPercentage);
-        spentTextMesh.text = String.Format(EnergyText.SpentPercent, energyDistribution.spentSlider.value);
+        income = energyDistribution.coeff * energyDistribution.incomePerPercent * energyDistribution.energyPercentage;
+        energyTextMesh.text = String.Format(EnergyText.EnergyCount, energyDistribution.count, energyDistribution.maxTimer, income, energyDistribution.incomePerPercent);
+        percentage.text = String.Format(EnergyText.PercentageCount, energyDistribution.armyPercentage, energyDistribution.energyPercentage);
     }
 }
