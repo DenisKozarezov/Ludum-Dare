@@ -27,3 +27,4 @@ MonoBehaviour:
     AttackSpeed: 2.31
     Cost: 0
     HpRegeneration: 0
+  _abilities: {fileID: 11400000, guid: 805e08602502d6f4d984ddc4ef9d63b4, type: 2}

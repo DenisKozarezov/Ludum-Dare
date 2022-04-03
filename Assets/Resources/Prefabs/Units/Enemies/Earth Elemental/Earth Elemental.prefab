@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc99686da0b41b4c89c59e4444569a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitData: {fileID: 11400000, guid: 1cc47cb92a94da343be7927329f0949f, type: 2}
+  _unitData: {fileID: 11400000, guid: 61372cb7d270f6749a65d9e30ea9279f, type: 2}
   _animator: {fileID: 4327535684248632628}
   _rigibody: {fileID: 6343744642661974595}
   _spriteRenderer: {fileID: 7390443219204949705}

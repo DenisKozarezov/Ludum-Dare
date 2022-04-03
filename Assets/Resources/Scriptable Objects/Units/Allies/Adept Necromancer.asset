@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9af60c55ab18647a04871fb935b617, type: 3}
+  m_Script: {fileID: 11500000, guid: 87477bb8ed151c24f8d6a263b9eecf45, type: 3}
   m_Name: Adept Necromancer
   m_EditorClassIdentifier: 
-  _id: 6
+  _id: 1
   _displayName: Adept Necromancer
   _description: 
   _unitType: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Allies/Adept Necromancer/Adept Necromancer
   _stats:
     MaxHealth: 150
-    Damage: 40
+    Damage: 0
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1

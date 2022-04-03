@@ -12,11 +12,11 @@ namespace Core.Services
         [SerializeField]
         private AbilitiesPanel _abilitiesPanel;
         [SerializeField]
-        private AbilitiesConfig _abilitiesConfig;
+        private PlayerModel _playerModel;
 
         private void Start()
         {
-            foreach (var item in _abilitiesConfig.Abilities)
+            foreach (var item in _playerModel.Abilities)
             {
                 _abilitiesPanel.AddAbility(item.Value);
             }

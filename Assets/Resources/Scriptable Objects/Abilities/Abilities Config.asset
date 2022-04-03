@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f5b7bc55737e54e9bfd1bce0d5216c, type: 3}
   m_Name: Abilities Config
   m_EditorClassIdentifier: 
-  Abilities:
+  _abilities:
     reorderableList:
       canAdd: 1
       canRemove: 1
@@ -38,31 +38,31 @@ MonoBehaviour:
     _keyValues: 00000000010000000200000003000000
     _keys: 00000000010000000200000003000000
     _values:
-    - _displayName: Fire Circle
+    - _displayName: Ability 1
       _description: 
       _manacost: 5
-      _cooldown: 20
+      _cooldown: 15
       _usageType: 0
       _effect: {fileID: 11400000, guid: 1f028e293488ad6428a34e3dcf42b4cb, type: 2}
-      _icon: {fileID: 1144244091, guid: 3fea4e52b9013d64ea4a13057c767179, type: 3}
-    - _displayName: Debuff
+      _icon: {fileID: 0}
+    - _displayName: Ability 2
       _description: 
-      _manacost: 10
-      _cooldown: 10
+      _manacost: 15
+      _cooldown: 15
       _usageType: 0
       _effect: {fileID: 11400000, guid: 8d67144c1fbdebb498dc3e1c8806c224, type: 2}
-      _icon: {fileID: 1485048439, guid: 7a488e0ee72935748ad70ab1ec1c2ed7, type: 3}
+      _icon: {fileID: 0}
     - _displayName: Ability 3
       _description: 
       _manacost: 15
       _cooldown: 15
       _usageType: 0
       _effect: {fileID: 0}
-      _icon: {fileID: 1599792357, guid: 20461a83b3af1734bbf61f2bad7d1dab, type: 3}
-    - _displayName: Ressurect
+      _icon: {fileID: 0}
+    - _displayName: Ability 3
       _description: 
       _manacost: 15
       _cooldown: 15
       _usageType: 0
       _effect: {fileID: 11400000, guid: 1ac25e220b5b15c45995dcb1423a32a4, type: 2}
-      _icon: {fileID: -1934904787, guid: 101694f6201fd66478c974fc266c91ad, type: 3}
+      _icon: {fileID: 0}

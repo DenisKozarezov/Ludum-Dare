@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9af60c55ab18647a04871fb935b617, type: 3}
-  m_Name: Venomous Chimera
+  m_Script: {fileID: 11500000, guid: 87477bb8ed151c24f8d6a263b9eecf45, type: 3}
+  m_Name: Deft Sorceress
   m_EditorClassIdentifier: 
-  _id: 3
-  _displayName: Venomous Chimera
+  _id: 13
+  _displayName: Deft Sorceress
   _description: 
   _unitType: 0
-  _specialization: 4
-  _raceType: 8
+  _specialization: 2
+  _raceType: 1
   _owner: 1
-  _prefabPath: Prefabs/Units/Enemies/Venomous Chimera/Venomous Chimera
+  _prefabPath: Prefabs/Units/Enemies/Deft Sorceress/Deft Sorceress
   _stats:
     MaxHealth: 150
-    Damage: 40
-    MovementSpeed: 2
+    Damage: 0
+    MovementSpeed: 1
     AttackSpeed: 2
-    Cost: 1
+    Cost: 0
     HpRegeneration: 0
