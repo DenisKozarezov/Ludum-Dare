@@ -22,7 +22,7 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Allies/Adept Necromancer/Adept Necromancer
   _stats:
     MaxHealth: 150
-    Damage: 5
+    Damage: 40
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1

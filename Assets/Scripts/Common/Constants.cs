@@ -10,5 +10,7 @@ namespace Core
         public const float WanderRange = 5f;
         public const float AttackRadius = 1f;
         public const float AggressionRadius = 3f;
+
+        public const float DeathTimer = 5f;
     }
 }

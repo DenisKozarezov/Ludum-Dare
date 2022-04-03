@@ -13,6 +13,8 @@ namespace Core.Units
         [SerializeField]
         private Animator _animator;
         [SerializeField]
+        private Rigidbody2D _rigibody;
+        [SerializeField]
         private SpriteRenderer _spriteRenderer;
         [SerializeField]
         private RangeCheckingSystem _rangeCheckingSystem;   
@@ -81,9 +83,16 @@ namespace Core.Units
 
         public void Disable()
         {
+            StopAllCoroutines();
+
             CanAttack = false;
             Invulnerable = true;
-            Target = null;
+
+            _rigibody.constraints = RigidbodyConstraints2D.FreezeAll;
+            foreach (var collider in GetComponents<Collider2D>())
+            {
+                collider.enabled = false;
+            }
         }
         public void Hit(float damage, UnitView source = null)
         {
@@ -109,9 +118,11 @@ namespace Core.Units
         public void Kill()
         {
             if (Dead) return;
-            StopAllCoroutines();
+            Disable();
             StateMachine.SwitchState<DeadState>();
             Died?.Invoke();
+
+            Destroy(gameObject, Constants.DeathTimer);
         }
         public void Taunt(UnitView target)
         {

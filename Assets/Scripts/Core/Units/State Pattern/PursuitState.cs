@@ -5,8 +5,6 @@ namespace Core.Units.State
 {
     public class PursuitState : BaseState<UnitView>
     {
-        private const float SqrAttackRange = 0.25f;
-
         public PursuitState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
         
@@ -20,9 +18,9 @@ namespace Core.Units.State
         }
 
         private bool ReachedTarget(out Vector2 direction)
-        {
+        {       
             direction = Unit.Target.transform.position - Unit.transform.position;
-            return direction.sqrMagnitude <= SqrAttackRange;
+            return direction.sqrMagnitude <= Constants.AttackRadius * Constants.AttackRadius;
         }
 
         public override void Enter()
@@ -35,6 +33,8 @@ namespace Core.Units.State
         }
         public override void Update()
         {
+            if (Unit.Dead) return;
+
             if (!ReachedTarget(out Vector2 direction))
             {
                 Unit.Translate(direction.normalized);
