@@ -4,7 +4,8 @@ using Core.Units;
 
 namespace Core.Models
 {
-    public abstract class UnitModel : ScriptableObject, IEquatable<UnitModel>
+    [CreateAssetMenu(menuName = "Configuration/Units/Create Unit Model")]
+    public class UnitModel : ScriptableObject, IEquatable<UnitModel>
     {
         [Header("Common Characteristics")]
         [SerializeField]

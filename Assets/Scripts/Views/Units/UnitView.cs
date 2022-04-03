@@ -17,9 +17,21 @@ namespace Core.Units
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
         [SerializeField]
-        private RangeCheckingSystem _rangeCheckingSystem;   
+        private RangeCheckingSystem _rangeCheckingSystem;
 
-        public UnitModel UnitData => _unitData;
+        public UnitModel UnitData
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (_unitData == null)
+                {
+                    EditorExtensions.Log($"<b><color=yellow>'{gameObject.name}</color></b>' forgot to assign <b><color=yellow>unit model</color></b>!", EditorExtensions.LogType.Assert);
+                }
+#endif
+                return _unitData;
+            }
+        }
 
         // ============ ANIMATION KEYS ============
         protected const string IDLE_KEY = "Idle";
@@ -58,7 +70,7 @@ namespace Core.Units
         }
         private void Update()
         {
-            if (Dead) return;
+            if (UnitData == null || Dead) return;
 
             StateMachine.CurrentState?.Update();
         }

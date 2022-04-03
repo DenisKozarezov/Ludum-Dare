@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9af60c55ab18647a04871fb935b617, type: 3}
+  m_Script: {fileID: 11500000, guid: 87477bb8ed151c24f8d6a263b9eecf45, type: 3}
   m_Name: Skilled Battlemage
   m_EditorClassIdentifier: 
-  _id: 2
+  _id: 9
   _displayName: Skilled Battlemage
   _description: 
-  _unitType: 0
+  _unitType: 1
   _specialization: 2
   _raceType: 1
   _owner: 1
   _prefabPath: Prefabs/Units/Enemies/Skilled Battlemage/Skilled Battlemage
   _stats:
     MaxHealth: 150
-    Damage: 40
+    Damage: 0
     MovementSpeed: 1
     AttackSpeed: 2
-    Cost: 1
+    Cost: 0
     HpRegeneration: 0

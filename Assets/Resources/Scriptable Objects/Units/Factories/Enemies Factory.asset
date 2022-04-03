@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Enemies Factory
   m_EditorClassIdentifier: 
   _units:
-  - {fileID: 11400000, guid: 1cc47cb92a94da343be7927329f0949f, type: 2}
+  - {fileID: 11400000, guid: 61372cb7d270f6749a65d9e30ea9279f, type: 2}
   - {fileID: 11400000, guid: 75df70d6d1e521a42a796e5950a119b0, type: 2}
-  - {fileID: 11400000, guid: 9f41c76455422b34a8814da418269a2d, type: 2}
+  - {fileID: 11400000, guid: df992ec57a77ba941b05fabdd0ff5d6f, type: 2}
   - {fileID: 11400000, guid: 0764675de8e73244b988a3b217703d39, type: 2}
   - {fileID: 11400000, guid: 476deb89ea794f84fbdabdc397c21611, type: 2}
+  - {fileID: 11400000, guid: 03887e22851175c4bac3b18b01090044, type: 2}
+  - {fileID: 11400000, guid: ced6f31b814a3a64db83c57263584078, type: 2}
