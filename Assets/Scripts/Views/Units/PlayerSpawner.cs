@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Core.Models;
 
@@ -13,6 +14,8 @@ namespace Core.Units
         private PlayerFactory _factory;
 
         private bool _spawning;
+
+        public event Action<UnitView> UnitManufactured;
 
         public UnitView SpawnUnit()
         {

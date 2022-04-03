@@ -16,7 +16,6 @@ namespace Core.Services
 
         private Lazy<UnitModel[]> AllUnits;
         private Dictionary<UnitView, UnitState> Units = new Dictionary<UnitView, UnitState>();
-        private ushort _enemiesCount;
 
         private void Awake()
         {
@@ -103,8 +102,6 @@ namespace Core.Services
             unit.Kill();
             RemoveUnit(unit);
 
-            if (unit is IEnemy) _enemiesCount--;
-
 #if UNITY_EDITOR
             Debug.Log($"Unit <b><color=yellow>{unit.UnitData.DisplayName}</color></b> was <b><color=red>killed</color></b>. Units remained: <b><color=green>{Units.Count}</color></b>.");
 #endif
@@ -113,7 +110,6 @@ namespace Core.Services
         private void RegisterUnit(UnitView unit)
         {
             if (Units.ContainsKey(unit)) return;
-            if (unit is IEnemy) _enemiesCount++;
             Units.Add(unit, unit.CreateState());
         }
     }
