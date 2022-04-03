@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Core.Models;
 using Core.Units.State;
@@ -12,7 +13,9 @@ namespace Core.Units
         [SerializeField]
         private Animator _animator;
         [SerializeField]
-        private RangeCheckingSystem _rangeCheckingSystem;
+        private SpriteRenderer _spriteRenderer;
+        [SerializeField]
+        private RangeCheckingSystem _rangeCheckingSystem;   
 
         public UnitModel UnitData => _unitData;
 
@@ -35,7 +38,7 @@ namespace Core.Units
         protected UnitStateMachine StateMachine { get; set; }
 
         public event Action<UnitRecievedDamageArgs> RecievedDamage;
-        public event Action<UnitView> Died;
+        public event Action Died;
 
         protected abstract void Awake();
         protected abstract void Start();
@@ -55,7 +58,7 @@ namespace Core.Units
             Invulnerable = true;
             Target = null;
         }
-        public void Hit(ushort damage, UnitView source = null)
+        public void Hit(float damage, UnitView source = null)
         {
             if (Dead || Invulnerable) return;
             RecievedDamage?.Invoke(new UnitRecievedDamageArgs
@@ -65,21 +68,34 @@ namespace Core.Units
                 Damage = damage
             });
         }
-        public void Kill(UnitView source = null)
+        public void Kill()
         {
             if (Dead) return;
             StateMachine.SwitchState<DeadState>();
-            Died?.Invoke(source);
+            Died?.Invoke();
         }
         public void Taunt(UnitView target)
         {
-            if (target.Dead) return; 
+            if (target.Dead || Dead) return; 
             Target = target;
             StateMachine.SwitchState<PursuitState>();
         }
         public void Translate(Vector2 direction)
         {
             transform.Translate(direction * UnitData.Stats.MovementSpeed * Time.deltaTime);
+            _spriteRenderer.flipX = direction.x <= 0;
+        }
+        public void Attack(UnitView target)
+        {
+            if (!CanAttack) return;
+            target.Hit(UnitData.Stats.Damage, this);
+            StartCoroutine(AttackCoroutine());
+        }
+        private IEnumerator AttackCoroutine()
+        {
+            CanAttack = false;
+            yield return new WaitForSeconds(UnitData.Stats.AttackSpeed);
+            CanAttack = true;
         }
     }
 }

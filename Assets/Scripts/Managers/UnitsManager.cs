@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Core.Units;
 using Core.Models;
@@ -8,15 +10,62 @@ namespace Core.Services
     public class UnitsManager : MonoBehaviour
     {
         private static UnitsManager _instance;
+
+        [SerializeField]
+        private Transform _unitsRoot;
+
+        private Lazy<UnitModel[]> AllUnits;
         private Dictionary<UnitView, UnitState> Units = new Dictionary<UnitView, UnitState>();
         private ushort _enemiesCount;
 
         private void Awake()
         {
             if (_instance == null) _instance = this;
+            AllUnits = CreateLazyArray<UnitModel>("");
         }
 
-        private void OnDamageRecieve(UnitRecievedDamageArgs args)
+        private Lazy<T[]> CreateLazyArray<T>(string path) where T : UnityEngine.Object
+        {
+            return new Lazy<T[]>(() => Resources.LoadAll<T>(path));
+        }
+
+        public static UnitView InstantiateUnit(uint id)
+        {
+            UnitModel data = _instance.AllUnits.Value.FirstOrDefault(x => x.ID == id);
+
+            if (data == null)
+            {
+#if UNITY_EDITOR
+                EditorExtensions.Log($"Unable to instantiate: there is no unit with such ID = {id}.", EditorExtensions.LogType.Warning);
+#endif
+                return null;
+            }
+
+            var prefab = Resources.Load<GameObject>(data.PrefabPath);
+            if (prefab == null)
+            {
+#if UNITY_EDITOR
+                EditorExtensions.Log("Unable to instantiate: can't load prefab from <color=yellow>Resources</color> folder.", EditorExtensions.LogType.Warning);
+#endif
+                return null;
+            }
+
+            var unit = GameObject.Instantiate(prefab, _instance._unitsRoot);
+            var view = unit.GetComponentInChildren<UnitView>();
+            _instance.OnUnitCreated(view);
+            return view;
+        }
+
+        private void OnUnitCreated(UnitView unit)
+        {
+            unit.RecievedDamage += OnRecievedDamage;
+            unit.Died += () =>
+            {
+                unit.RecievedDamage -= OnRecievedDamage;
+            };
+            RegisterUnit(unit);
+        }
+        private void OnRecievedDamage(UnitRecievedDamageArgs args)
         {
             UnitView unit = args.Target;
             if (!Units.ContainsKey(unit)) return;
@@ -28,7 +77,7 @@ namespace Core.Services
             else
             {
                 Units[unit].Health = 0f;
-
+                Kill(unit);
             }
         }
         private void OnUnitHealed(UnitView unit, float value)
@@ -61,11 +110,11 @@ namespace Core.Services
 #endif
         }
 
-        public static void RegisterUnit(UnitView unit)
+        private void RegisterUnit(UnitView unit)
         {
-            if (_instance.Units.ContainsKey(unit)) return;
-            if (unit is IEnemy) _instance._enemiesCount++;
-            _instance.Units.Add(unit, unit.CreateState());
+            if (Units.ContainsKey(unit)) return;
+            if (unit is IEnemy) _enemiesCount++;
+            Units.Add(unit, unit.CreateState());
         }
     }
 }

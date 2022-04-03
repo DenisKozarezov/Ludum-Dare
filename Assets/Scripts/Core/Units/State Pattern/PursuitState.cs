@@ -31,6 +31,10 @@ namespace Core.Units.State
             {
                 Unit.Translate(direction.normalized);
             }
+            else
+            {
+                StateMachine.SwitchState<AttackState>();
+            }
         }
     }
 }

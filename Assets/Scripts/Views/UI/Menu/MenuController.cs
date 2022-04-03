@@ -10,9 +10,10 @@ namespace Core.UI
         [SerializeField]
         private bool _autoActiveWhenStart;
         [SerializeField]
+        private bool _closeWhenLast;
+        [SerializeField]
         private SerializableDictionaryBase<MenuStates, MenuState> _states;
 
-        private MenuStates _startState;
         private MenuStates CurrentState { get; set; }
         private readonly Stack<MenuStates> StateHistory = new Stack<MenuStates>();
 
@@ -29,22 +30,27 @@ namespace Core.UI
             {
                 state.Value.gameObject.SetActive(false);
             }
-            var startState = _states.First();
-            _startState = startState.Key;
-            SwitchState(_startState);
-            startState.Value.gameObject.SetActive(_autoActiveWhenStart);
+            _states.First().Value.gameObject.SetActive(_autoActiveWhenStart);
+        }
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyUp(KeyCode.Escape))
+            {
+                GetBack();
+            }
         }
 
         public void SwitchState(MenuStates state, bool getBack = false)
         {
             if (!_states.ContainsKey(state) || _states[state] == null) return;
 
-            if (CurrentState != MenuStates.Menu && _states.TryGetValue(CurrentState, out MenuState currentState))
+            if (_states.TryGetValue(CurrentState, out MenuState currentState))
             {
                 currentState.gameObject.SetActive(false);
             }
             CurrentState = state;
             _states[state].gameObject.SetActive(true);
+            _states[state].transform.SetAsLastSibling();
 
             if (!getBack)
             {
@@ -57,23 +63,22 @@ namespace Core.UI
         }
         public void GetBack()
         {
-            if (CurrentState == MenuStates.Menu) return;
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            switch (StateHistory.Count)
             {
-                _states[CurrentState].GetBack();
-            }
-        }
-        public void CloseLastWindow()
-        {
-            if (StateHistory.Count <= 1)
-            {
-                SwitchState(_startState);
-            }
-            else
-            {
-                StateHistory.Pop();
-                SwitchState(StateHistory.Peek(), true);
+                case 0:
+                    SwitchState(MenuStates.Menu);
+                    break;
+                case 1:
+                    if (_closeWhenLast)
+                    {
+                        StateHistory.Pop();
+                        _states[CurrentState].gameObject.SetActive(false);
+                    }
+                    break;
+                default:
+                    StateHistory.Pop();
+                    SwitchState(StateHistory.Peek(), true);
+                    break;
             }
         }
     }

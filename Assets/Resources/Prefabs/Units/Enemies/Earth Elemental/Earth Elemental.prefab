@@ -118,7 +118,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitData: {fileID: 11400000, guid: 1cc47cb92a94da343be7927329f0949f, type: 2}
   _animator: {fileID: 4327535684248632628}
+  _spriteRenderer: {fileID: 7390443219204949705}
   _rangeCheckingSystem: {fileID: -9072226701253342472}
 --- !u!114 &-9072226701253342472
 MonoBehaviour:

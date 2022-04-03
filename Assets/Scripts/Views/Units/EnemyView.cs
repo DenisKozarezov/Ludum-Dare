@@ -14,8 +14,6 @@ namespace Core.Units
         protected override void Start()
         {
             if (UnitData == null) return;
-            UnitsManager.RegisterUnit(this);
-
             Taunt(PlayerView.Instance);
         }
         private void Update()

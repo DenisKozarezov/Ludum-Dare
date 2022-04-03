@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Model
   m_EditorClassIdentifier: 
   _id: 0
-  _displayName: Player Model
+  _displayName: Eins
   _description: 
   _unitType: 1
   _specialization: 2
@@ -21,7 +21,7 @@ MonoBehaviour:
   _owner: 2
   _prefabPath: Prefabs/Units/Main Hero/Main Hero
   _stats:
-    MaxHealth: 100
+    MaxHealth: 5
     Damage: 0
     Strength: 0
     Agility: 0

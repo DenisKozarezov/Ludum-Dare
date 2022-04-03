@@ -22,10 +22,10 @@ MonoBehaviour:
   _prefabPath: Prefabs/Units/Enemies/Venomous Chimera/Venomous Chimera
   _stats:
     MaxHealth: 150
-    Damage: 0
+    Damage: 1
     Strength: 0
     Agility: 0
     Intelligence: 0
     MovementSpeed: 2
-    AttackSpeed: 0
+    AttackSpeed: 2
     HpRegeneration: 0

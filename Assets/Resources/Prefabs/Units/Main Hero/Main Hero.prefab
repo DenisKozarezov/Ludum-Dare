@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8644621956287346694}
   - component: {fileID: 4086081442869361385}
   - component: {fileID: 6502276813231722115}
+  - component: {fileID: 3010558660385851836}
   m_Layer: 3
   m_Name: Main Hero
   m_TagString: Untagged
@@ -96,7 +97,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1577795212, guid: 9df7fc85a5c64084aab925ddba37b4db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitData: {fileID: 11400000, guid: ac305cbf87197794fb175c9ae5452eb7, type: 2}
   _animator: {fileID: 4786410699651650579}
+  _spriteRenderer: {fileID: 4705502459616839795}
   _rangeCheckingSystem: {fileID: 6502276813231722115}
 --- !u!114 &6502276813231722115
 MonoBehaviour:
@@ -164,3 +166,24 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!50 &3010558660385851836
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4786410699651650576}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
