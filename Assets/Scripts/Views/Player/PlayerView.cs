@@ -16,8 +16,6 @@ namespace Core.Units
         protected override void Start()
         {
             if (UnitData == null) return;
-            UnitsManager.RegisterUnit(this);
-
             StateMachine.SwitchState<WanderState>();
         }
         private void Update()

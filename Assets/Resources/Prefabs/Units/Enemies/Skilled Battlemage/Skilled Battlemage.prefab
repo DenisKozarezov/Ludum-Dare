@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitData: {fileID: 11400000, guid: 75df70d6d1e521a42a796e5950a119b0, type: 2}
   _animator: {fileID: 5111179899438955866}
+  _spriteRenderer: {fileID: 264860761406768144}
   _rangeCheckingSystem: {fileID: 8611447967111061014}
 --- !u!114 &8611447967111061014
 MonoBehaviour:

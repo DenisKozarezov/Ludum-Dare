@@ -27,5 +27,5 @@ MonoBehaviour:
     Agility: 0
     Intelligence: 0
     MovementSpeed: 1
-    AttackSpeed: 0
+    AttackSpeed: 2
     HpRegeneration: 0
