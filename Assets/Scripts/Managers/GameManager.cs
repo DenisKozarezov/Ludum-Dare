@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using Core.UI;
 
 namespace Core.Services
 {
@@ -9,6 +10,8 @@ namespace Core.Services
     {
         [SerializeField]
         private Transform _playerSpawn;
+        [SerializeField]
+        private MenuController _gameMenu;
 
         [Header("Options")]
         [SerializeField, Min(0)]
@@ -36,8 +39,11 @@ namespace Core.Services
         private void GameOverFunction()
         {
 #if UNITY_EDITOR
-            Debug.Log("<b><color=green>[GAME]</color></b>: Game over.");
+            Debug.Log("<b><color=green>[GAME]</color></b>: Game <b><color=yellow>over</color></b>.");
 #endif
+
+            _gameMenu.Enable = false;
+
             GameOver?.Invoke();
         }
     }

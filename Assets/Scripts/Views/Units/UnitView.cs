@@ -32,6 +32,7 @@ namespace Core.Units
         // ========================================
 
         // =============== COMBAT =================
+        private bool _alreadyHit;
         public UnitView Target { get; private set; }
         // ========================================
 
@@ -67,6 +68,20 @@ namespace Core.Units
                 Source = source,
                 Damage = damage
             });
+
+            if (!_alreadyHit) StartCoroutine(HitCoroutine());
+        }
+        private IEnumerator HitCoroutine()
+        {
+            _alreadyHit = true;
+            Color defaultColor = _spriteRenderer.material.color;
+            for (int i = 0; i < 5; i++)
+            {
+                _spriteRenderer.material.color = Color.red;
+                yield return new WaitForSeconds(0.5f);
+                _spriteRenderer.material.color = defaultColor;
+            }
+            _alreadyHit = false;
         }
         public void Kill()
         {

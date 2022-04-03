@@ -8,7 +8,12 @@ namespace Core.Units.State
 
         public PursuitState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
-          
+        
+        }
+
+        private void OnTargetDied()
+        {
+            StateMachine.SwitchState<WanderState>();
         }
 
         private bool ReachedTarget(out Vector2 direction)
@@ -19,11 +24,11 @@ namespace Core.Units.State
 
         public override void Enter()
         {
-            
+            Unit.Target.Died += OnTargetDied;
         }
         public override void Exit()
         {
-          
+            Unit.Target.Died -= OnTargetDied;
         }
         public override void Update()
         {

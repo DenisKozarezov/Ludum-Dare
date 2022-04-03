@@ -12,10 +12,12 @@ namespace Core.UI
         [SerializeField]
         private bool _closeWhenLast;
         [SerializeField]
-        private SerializableDictionaryBase<MenuStates, MenuState> _states;
+        private SerializableDictionaryBase<MenuStates, MenuState> _states;      
 
         private MenuStates CurrentState { get; set; }
         private readonly Stack<MenuStates> StateHistory = new Stack<MenuStates>();
+
+        public bool Enable { get; set; } = true;
 
         private void Start()
         {
@@ -34,7 +36,7 @@ namespace Core.UI
         }
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyUp(KeyCode.Escape))
+            if (Enable && UnityEngine.Input.GetKeyUp(KeyCode.Escape))
             {
                 GetBack();
             }

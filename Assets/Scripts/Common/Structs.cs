@@ -6,11 +6,4 @@ namespace Core.Units
         public UnitView Source;
         public float Damage;
     }
-
-    public class UnitStatuses
-    {
-        public bool Stunned;
-        public bool Rooted;
-        public bool Invulnerable;
-    }
 }

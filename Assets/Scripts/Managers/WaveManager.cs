@@ -1,7 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using Core.Units;
+using System.Threading;
 
 namespace Core.Services
 {
@@ -13,6 +15,7 @@ namespace Core.Services
         [SerializeField]
         private byte _increasePerWave;
 
+        private bool _spawning;
         private ushort _enemiesCount;
 
         [SerializeField]
@@ -29,6 +32,7 @@ namespace Core.Services
             {
                 _spawners[i].UnitManufactured += OnUnitManufactured;
             }
+            WaveEnded.AddListener(OnWaveEnded);
         }
 
         private void OnUnitManufactured(UnitView unit)
@@ -39,6 +43,12 @@ namespace Core.Services
                 _enemiesCount--;
                 if (_enemiesCount == 0) EndWave();
             };
+        }
+        private async void OnWaveEnded()
+        {
+            if (!_spawning) return;
+            await Task.Delay(TimeSpan.FromSeconds(_delayBeforeWave));
+            StartWave();
         }
         private void ActivateSpawners(bool isActive)
         {
@@ -51,18 +61,28 @@ namespace Core.Services
         }
         public void StartWave()
         {
-#if UNITY_EDITOR
-            Debug.Log($"<b><color=green>[WAVES]</color></b>: New wave <b><color=yellow>incoming</color></b>. Waves passed: <b><color=yellow>{_wavesCount}</color></b>.");
-#endif
-
             _wavesCount++;
+
+#if UNITY_EDITOR
+            Debug.Log($"<b><color=green>[WAVES]</color></b>: New wave <b><color=yellow>incoming</color></b>. Current wave: <b><color=yellow>{_wavesCount}</color></b>.");
+#endif
+            
             ActivateSpawners(true);
             WaveBegin?.Invoke();
         }
-        private void EndWave()
+        public void EndWave()
         {
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[WAVES]</color></b>: The wave <b><color=yellow>has passed</color></b>.");
+#endif
+
             ActivateSpawners(false);
             WaveEnded?.Invoke();
+        }
+        public void EndGame()
+        {
+            ActivateSpawners(false);
+            _spawning = false;
         }
     }
 }

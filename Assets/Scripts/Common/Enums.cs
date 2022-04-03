@@ -49,3 +49,12 @@ namespace Core
 {
     public enum FadeMode : byte { In, Out }
 }
+
+namespace Core.Abilities
+{
+    public enum UsageType : byte
+    {
+        NonTarget = 0,
+        Target = 1,
+    }
+}
