@@ -7,6 +7,7 @@ public class EnergyDistribution : MonoBehaviour
     public Energy energy = new Energy();
     public Slider percentageSlider;
     public Slider spentSlider;
+
     public float timer = 1f;
     public float maxTimer = 1f;
     public float targetEnergyCount = 1000f;
@@ -17,6 +18,8 @@ public class EnergyDistribution : MonoBehaviour
     private void Start() 
     {
         percentageSlider.value = 50f;
+        spentSlider.value = 50f;
+        energy.spentPerSecond = energy.count*(spentSlider.value/100);
         OnValueChange?.Invoke();
     }
 
@@ -25,25 +28,19 @@ public class EnergyDistribution : MonoBehaviour
         if (timer > 0) timer -= Time.deltaTime;
         else
         {
+            energy.spentPerSecond = energy.count*(spentSlider.value/100);
             if (energy.count >= energy.spentPerSecond) 
             {
                 energy.count -= energy.spentPerSecond;
             }
-            Debug.Log(energy.count);
-            energy.count += energy.incomePerSecond + energy.incomePerSecond*energy.efficiency*(energy.energyPercentage/100f);
+            energy.count += energy.incomePerSecond + energy.efficiency*(energy.spentPerSecond*(energy.energyPercentage/100));
             timer = maxTimer;
             OnValueChange?.Invoke();
-            spentSlider.maxValue = energy.count;
             if (energy.count >= targetEnergyCount) 
             {
                 Win?.Invoke();
             }
         }
-    }
-
-    public void Spent()
-    {
-        energy.spentPerSecond = spentSlider.value;
     }
 
     public void DistributeEnergy() 

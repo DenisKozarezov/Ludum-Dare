@@ -249,19 +249,7 @@ MonoBehaviour:
   targetEnergyCount: 1000
   OnValueChange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1206104105}
-        m_TargetAssemblyTypeName: EnergyUI, Assembly-CSharp
-        m_MethodName: UpdateValues
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   Win:
     m_PersistentCalls:
       m_Calls: []
@@ -294,7 +282,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyDistribution: {fileID: 1206104103}
   energyTextMesh: {fileID: 130815238}
+  spentTextMesh: {fileID: 1437401615}
   percentage: {fileID: 204880020}
+--- !u!114 &1437401615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2464746382189701025, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+  m_PrefabInstance: {fileID: 3829461194361447655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1478275727 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
@@ -455,7 +455,7 @@ PrefabInstance:
     - target: {fileID: 2007412966, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1206104103}
+      objectReference: {fileID: 1206104105}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
