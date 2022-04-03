@@ -41,7 +41,6 @@ public class EnergyDistribution : MonoBehaviour
         else
         {
             coeff = (int)count / baseDivision;
-            print(coeff);
             count = Math.Min(count+coeff*incomePerPercent*energyPercentage, energyLimit);
             timer = maxTimer;
             OnValueChange?.Invoke();

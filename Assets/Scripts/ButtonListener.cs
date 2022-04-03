@@ -1,16 +1,17 @@
 using UnityEngine;
+using Core.Services;
 
 public class ButtonListener : MonoBehaviour
 {
-    public Upgrade upgrade;
-    public EnergyDistribution energyDistribution;
-    [SerializeField] string operatorType;
-    [SerializeField] string parameter;
-    [SerializeField] float parameterValue;
+    private Upgrade upgrade;
+
+    public void getUpgrade(Upgrade upgrade)
+    {
+        this.upgrade = upgrade;
+    }
 
     public void createUpgrade()
     {
-        upgrade = new Upgrade("Upgrade name", "Upgrade desc", operatorType, parameter, parameterValue);
-        upgrade.UpgradeValue(ref energyDistribution);
+        upgrade.UpgradeValue();
     }
 }

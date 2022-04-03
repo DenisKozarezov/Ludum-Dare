@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &73797605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 73797605, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+  m_PrefabInstance: {fileID: 3829461194361447655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &130815238 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3829461194390024673, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
@@ -210,7 +215,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206104102
 GameObject:
@@ -224,7 +229,7 @@ GameObject:
   - component: {fileID: 1206104103}
   - component: {fileID: 1206104105}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: EnergyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentageSlider: {fileID: 1897363288}
   baseDivision: 100
+  energyLimit: 1000
   count: 100
   armyPercentage: 50
   energyPercentage: 50
@@ -253,7 +259,19 @@ MonoBehaviour:
   targetEnergyCount: 1000
   OnValueChange:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206104105}
+        m_TargetAssemblyTypeName: EnergyUI, Assembly-CSharp
+        m_MethodName: UpdateValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Win:
     m_PersistentCalls:
       m_Calls: []
@@ -270,7 +288,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1206104105
 MonoBehaviour:
@@ -298,6 +316,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1909749003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909749005}
+  - component: {fileID: 1909749004}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1909749004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909749003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401b6fd360f5b1549b1e3dcd3287b8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradePanel: {fileID: 73797605}
+  energyDistribution: {fileID: 0}
+  unitsManager: {fileID: 0}
+--- !u!4 &1909749005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909749003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.37543935, y: -0.12798196, z: 70.819954}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1994542242
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,22 +454,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: parameter
-      value: incomePerPercent
-      objectReference: {fileID: 0}
-    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: operatorType
-      value: add
-      objectReference: {fileID: 0}
-    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: parameterValue
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: energyDistribution
+    - target: {fileID: 316501989, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1206104103}
+      objectReference: {fileID: 1909749004}
+    - target: {fileID: 462770796, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1909749004}
+    - target: {fileID: 837065041, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1909749004}
     - target: {fileID: 52942176866565833, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -427,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -518,44 +579,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_Value
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_MaxValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_WholeNumbers
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1206104103}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DistributeEnergy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EnergyDistribution, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
