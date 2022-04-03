@@ -1,13 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class EnergyDistribution : MonoBehaviour
 {
-    public Energy energy = new Energy();
+    public object this[string propertyName]
+    {
+        get { return this.GetType().GetProperty(propertyName).GetValue(this, null); }
+        set { this.GetType().GetProperty(propertyName).SetValue(this, value, null); }
+    }
+    
     public Slider percentageSlider;
-    public Slider spentSlider;
+    
+    public int baseDivision = 100;
+    public float energyLimit = 1000f;
 
+    public float count = 100f;
+    public float armyPercentage = 50f;
+    public float energyPercentage = 50f;
+    public float coeff = 1f;
     public float timer = 1f;
     public float maxTimer = 1f;
     public float targetEnergyCount = 1000f;
@@ -15,38 +27,40 @@ public class EnergyDistribution : MonoBehaviour
     public UnityEvent OnValueChange;
     public UnityEvent Win;
 
-    private void Start() 
+    public float incomePerPercent { get; set; }
+
+    void Start() 
     {
+        incomePerPercent = 1f;
         percentageSlider.value = 50f;
-        spentSlider.value = 50f;
-        energy.spentPerSecond = energy.count*(spentSlider.value/100);
-        OnValueChange?.Invoke();
     }
 
-    private void Update() 
+    void Update() 
     {
         if (timer > 0) timer -= Time.deltaTime;
         else
         {
-            energy.spentPerSecond = energy.count*(spentSlider.value/100);
-            if (energy.count >= energy.spentPerSecond) 
-            {
-                energy.count -= energy.spentPerSecond;
-            }
-            energy.count += energy.incomePerSecond + energy.efficiency*(energy.spentPerSecond*(energy.energyPercentage/100));
+            coeff = (int)count / baseDivision;
+            print(coeff);
+            count = Math.Min(count+coeff*incomePerPercent*energyPercentage, energyLimit);
             timer = maxTimer;
             OnValueChange?.Invoke();
-            if (energy.count >= targetEnergyCount) 
+            if (count >= targetEnergyCount) 
             {
                 Win?.Invoke();
             }
         }
     }
 
+    public void SpendEnergy(float spawncost)
+    {
+        count -= spawncost;
+    }
+
     public void DistributeEnergy() 
     {
-        energy.armyPercentage = percentageSlider.value;
-        energy.energyPercentage = 100f - percentageSlider.value;
+        armyPercentage = percentageSlider.value;
+        energyPercentage = 100f - percentageSlider.value;
         OnValueChange?.Invoke();
     }
 }

@@ -242,8 +242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b89f4fbc5df104da173f46abb673b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentageSlider: {fileID: 1478275727}
-  spentSlider: {fileID: 1810907220}
+  percentageSlider: {fileID: 1897363288}
+  baseDivision: 100
+  count: 100
+  armyPercentage: 50
+  energyPercentage: 50
+  coeff: 1
   timer: 1
   maxTimer: 1
   targetEnergyCount: 1000
@@ -282,33 +286,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyDistribution: {fileID: 1206104103}
   energyTextMesh: {fileID: 130815238}
-  spentTextMesh: {fileID: 1437401615}
   percentage: {fileID: 204880020}
---- !u!114 &1437401615 stripped
+--- !u!114 &1897363288 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2464746382189701025, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-  m_PrefabInstance: {fileID: 3829461194361447655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1478275727 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-  m_PrefabInstance: {fileID: 3829461194361447655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1810907220 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2007412966, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
   m_PrefabInstance: {fileID: 3829461194361447655}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -408,54 +389,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 775079184, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: parameter
+      value: incomePerPercent
       objectReference: {fileID: 0}
-    - target: {fileID: 775079184, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: operatorType
+      value: add
       objectReference: {fileID: 0}
-    - target: {fileID: 929794086, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: parameterValue
+      value: 0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 929794086, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 929794086, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 941292522, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 941292522, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478275727, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    - target: {fileID: 1975728439, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: energyDistribution
       value: 
       objectReference: {fileID: 1206104103}
-    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+    - target: {fileID: 52942176866565833, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+    - target: {fileID: 52942176866565833, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1706132305, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+    - target: {fileID: 52942176866565833, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2007412966, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1206104105}
     - target: {fileID: 3829461195149575553, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -548,5 +509,53 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1994542244}
+    - target: {fileID: 6709163717211995216, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709163717211995216, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_Value
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1206104103}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DistributeEnergy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnergyDistribution, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128854509252466, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba610f2d30c23340b0328ca7c0ea7f9, type: 3}
