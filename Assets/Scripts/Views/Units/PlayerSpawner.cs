@@ -16,6 +16,7 @@ namespace Core.Units
 
         public UnitView SpawnUnit()
         {
+            var unit = _factory.GetRandomUnit();
             return _spawning ? _factory.GetRandomUnit() : null;
         }
 

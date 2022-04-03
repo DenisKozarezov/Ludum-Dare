@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Core.Units.State
@@ -5,8 +6,8 @@ namespace Core.Units.State
     public class WanderState : BaseState<UnitView>
     {
         private const float WanderRange = 3f;
-        private Vector3 _currentPoint;
-        private Vector3 _initPosition;
+        private Vector2 _currentPoint;
+        private Vector2 _initPosition;
 
         public WanderState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
@@ -15,12 +16,12 @@ namespace Core.Units.State
 
         private Vector2 GetRandomDestination()
         {
-            Vector3 randomPoint = Random.insideUnitCircle * WanderRange;
-            return _initPosition + new Vector3(randomPoint.x, randomPoint.y);
+            return _initPosition + Random.insideUnitCircle * WanderRange;
         }
-        private bool ReachedDestination()
+        private bool ReachedDestination(out Vector2 direction)
         {
-            return (_currentPoint - Unit.transform.position).sqrMagnitude <= 0.1f;
+            direction = _currentPoint - (Vector2)Unit.transform.position;
+            return direction.sqrMagnitude <= 0.1f;
         }
 
         public override void Enter()
@@ -38,12 +39,11 @@ namespace Core.Units.State
             Debug.DrawLine(Unit.transform.position, _currentPoint, Color.yellow);
 #endif
 
-            if (ReachedDestination())
+            if (ReachedDestination(out Vector2 direction))
             {
                 _currentPoint = GetRandomDestination();
             }
-            Vector2 direction = (_currentPoint - Unit.transform.position).normalized;
-            Unit.Translate(direction);
+            Unit.Translate(direction.normalized);
         }
     }
 }
