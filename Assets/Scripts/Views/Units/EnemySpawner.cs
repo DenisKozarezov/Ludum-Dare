@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Core.Models;
 
@@ -18,15 +19,14 @@ namespace Core.Units
         private float _timer;
         private byte _counter;
 
-        private void Start()
-        {
-            Enable(true);
-        }
+        public byte SpawnMaxCount => _spawnMaxCount;
+
+        public event Action<UnitView> UnitManufactured;
+
         private void Update()
         {
             if (!_spawning || _counter >= _spawnMaxCount)
             {
-                if (_spawning) Enable(false);
                 return;
             }
 
@@ -37,6 +37,7 @@ namespace Core.Units
                 unit.transform.position = transform.position;
                 _counter++;
                 _timer = _spawnRate;
+                UnitManufactured?.Invoke(unit);
             }           
         }
 
@@ -48,6 +49,10 @@ namespace Core.Units
         public void Enable(bool isSpawning)
         {
             _spawning = isSpawning;
+        }
+        public void SetSpawnAmount(byte amount)
+        {
+            _spawnMaxCount = amount;
         }
     }
 }
