@@ -35,10 +35,20 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 00000000
-    _keys: 00000000
+    _keyValues: 000000000100000002000000
+    _keys: 000000000100000002000000
     _values:
     - _displayName: Ability 1
+      _description: 
+      _manacost: 5
+      _usageType: 0
+      _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - _displayName: Ability 2
+      _description: 
+      _manacost: 5
+      _usageType: 0
+      _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - _displayName: Ability 3
       _description: 
       _manacost: 5
       _usageType: 0

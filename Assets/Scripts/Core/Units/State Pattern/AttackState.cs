@@ -1,9 +1,9 @@
+using Core.Services;
+
 namespace Core.Units.State
 {
     public class AttackState : BaseState<UnitView>
     {
-        private const float SqrAttackRange = 0.25f;
-
         public AttackState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
 
@@ -11,11 +11,13 @@ namespace Core.Units.State
 
         private void OnTargetDied()
         {
-            StateMachine.SwitchState<WanderState>();
+            var nearestEnemy = UnitsManager.GetNearestEnemy(Unit);
+            if (nearestEnemy != null) Unit.Taunt(nearestEnemy);
+            else Unit.Wander();
         }
         private bool ReachedTarget()
         {
-            return (Unit.Target.transform.position - Unit.transform.position).sqrMagnitude <= SqrAttackRange;
+            return (Unit.Target.transform.position - Unit.transform.position).sqrMagnitude <= Constants.AttackRadius * Constants.AttackRadius;
         }
 
         public override void Enter()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.Services;
 
 namespace Core.Units.State
 {
@@ -13,7 +14,9 @@ namespace Core.Units.State
 
         private void OnTargetDied()
         {
-            StateMachine.SwitchState<WanderState>();
+            var nearestEnemy = UnitsManager.GetNearestEnemy(Unit);
+            if (nearestEnemy != null) Unit.Taunt(nearestEnemy);
+            else Unit.Wander();
         }
 
         private bool ReachedTarget(out Vector2 direction)

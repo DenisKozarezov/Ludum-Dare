@@ -1,4 +1,3 @@
-using Core.Services;
 using Core.Units.State;
 
 namespace Core.Units
@@ -10,19 +9,8 @@ namespace Core.Units
 
         protected override void Awake()
         {
+            base.Awake();
             if (_instance == null) _instance = this;
-            StateMachine = new UnitStateMachine(this);
-        }
-        protected override void Start()
-        {
-            if (UnitData == null) return;
-            StateMachine.SwitchState<WanderState>();
-        }
-        private void Update()
-        {
-            if (Dead) return;
-
-            StateMachine.CurrentState.Update();
         }
     }
 }

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e9af60c55ab18647a04871fb935b617, type: 3}
-  m_Name: Water Elemental
+  m_Name: Adept Necromancer
   m_EditorClassIdentifier: 
-  _id: 5
-  _displayName: Water Elemental
+  _id: 6
+  _displayName: Adept Necromancer
   _description: 
   _unitType: 0
   _specialization: 2
-  _raceType: 16
-  _owner: 1
-  _prefabPath: Prefabs/Units/Enemies/Water Elemental/Water Elemental
+  _raceType: 8
+  _owner: 2
+  _prefabPath: Prefabs/Units/Allies/Adept Necromancer/Adept Necromancer
   _stats:
     MaxHealth: 150
-    Damage: 1
+    Damage: 5
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 1

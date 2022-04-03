@@ -5,5 +5,6 @@ namespace Core.Models
         public float Health { get; set; }
         public float MaxHealth { get; set; }
         public float NormalizedHealth => Health / (float)MaxHealth;
+
     }
 }
