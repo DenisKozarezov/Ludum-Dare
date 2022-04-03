@@ -9,6 +9,10 @@ namespace Core.Units.State
 
         }
 
+        private void OnTargetDied()
+        {
+            StateMachine.SwitchState<WanderState>();
+        }
         private bool ReachedTarget()
         {
             return (Unit.Target.transform.position - Unit.transform.position).sqrMagnitude <= SqrAttackRange;
@@ -16,12 +20,11 @@ namespace Core.Units.State
 
         public override void Enter()
         {
-   
+            Unit.Target.Died += OnTargetDied;
         }
-
         public override void Exit()
         {
-   
+            Unit.Target.Died -= OnTargetDied;
         }
         public override void Update()
         {
