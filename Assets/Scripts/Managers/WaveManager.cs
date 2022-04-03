@@ -17,12 +17,12 @@ namespace Core.Services
 
         private bool _spawning;
         private ushort _enemiesCount;
-
-        [SerializeField]
-        private EnemySpawner[] _spawners;
-
         private byte _wavesCount;
 
+        [SerializeField]
+        private UnitSpawner[] _spawners;
+
+        [Space]
         public UnityEvent WaveBegin;
         public UnityEvent WaveEnded;
 
@@ -40,7 +40,7 @@ namespace Core.Services
             _enemiesCount++;
             unit.Died += () =>
             {
-                _enemiesCount--;
+                if (unit is IEnemy) _enemiesCount--;
                 if (_enemiesCount == 0) EndWave();
             };
         }
@@ -55,8 +55,10 @@ namespace Core.Services
             for (int i = 0; i < _spawners.Length; i++)
             {
                 byte increasedRate = (byte)(_spawners[i].SpawnMaxCount + _increasePerWave);
+
                 _spawners[i].SetSpawnAmount(increasedRate);
                 _spawners[i].Enable(isActive);
+
             }
         }
         public void StartWave()

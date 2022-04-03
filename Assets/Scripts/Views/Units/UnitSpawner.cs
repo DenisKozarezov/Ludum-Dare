@@ -4,7 +4,7 @@ using Core.Models;
 
 namespace Core.Units
 {
-    public class EnemySpawner : MonoBehaviour, IUnitSpawner
+    public class UnitSpawner : MonoBehaviour, IUnitSpawner
     {
         [Header("Options")]
         [SerializeField, Min(0)]
@@ -13,7 +13,7 @@ namespace Core.Units
         private byte _spawnMaxCount;
 
         [SerializeField]
-        private EnemyFactory _factory;
+        private UnitFactory _factory;
 
         private bool _spawning;
         private float _timer;

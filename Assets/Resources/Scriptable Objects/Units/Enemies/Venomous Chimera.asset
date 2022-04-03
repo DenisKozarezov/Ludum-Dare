@@ -23,9 +23,7 @@ MonoBehaviour:
   _stats:
     MaxHealth: 150
     Damage: 1
-    Strength: 0
-    Agility: 0
-    Intelligence: 0
     MovementSpeed: 2
     AttackSpeed: 2
+    Cost: 1
     HpRegeneration: 0

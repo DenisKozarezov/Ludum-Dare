@@ -1,14 +1,25 @@
-using Core.Units;
+using System.Collections.Generic;
 using UnityEngine;
+using Core.Units;
 
 namespace Core.Models
 {
-    public abstract class UnitFactory<T> : ScriptableObject where T : UnitModel
+    [CreateAssetMenu(menuName = "Configuration/Units/Create Unit Factory")]
+    public class UnitFactory : ScriptableObject
     {
-        protected abstract T GetConfig<Unit>() where Unit : T;
-        protected abstract T GetRandomConfig();
+        [SerializeField]
+        private List<UnitModel> _units;
 
-        public UnitView GetUnit<Unit>() where Unit : T
+        protected UnitModel GetConfig<T>() where T : UnitModel
+        {
+            return _units.Find(x => x is T);
+        }
+        protected UnitModel GetRandomConfig()
+        {
+            return _units[Random.Range(0, _units.Count)];
+        }
+
+        public UnitView GetUnit<T>() where T : UnitModel
         {
             var config = GetConfig<T>();
             return Services.UnitsManager.InstantiateUnit(config.ID);

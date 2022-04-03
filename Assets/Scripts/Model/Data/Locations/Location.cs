@@ -5,9 +5,7 @@ namespace Core
 {
     public class Location : MonoBehaviour
     {
-        [Header("Options")]
-        [SerializeField]
-        private PlayerSpawner _spawner;
+      
 
         public void Lockdown()
         {
@@ -15,7 +13,7 @@ namespace Core
         }
         public void EnableSpawning(bool isSpawning)
         {
-            _spawner.Enable(isSpawning);
+          
         }
     }
 }

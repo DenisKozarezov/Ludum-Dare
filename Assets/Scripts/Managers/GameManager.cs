@@ -46,5 +46,48 @@ namespace Core.Services
 
             GameOver?.Invoke();
         }
+
+        private void ExitGame()
+        {
+            if (Application.isEditor)
+            {
+#if UNITY_EDITOR
+                EditorExtensions.Log("Player <b><color=yellow>quited</color></b> game.");
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }
+        public async void ExitGame_UnityEditor()
+        {
+            var form = UI.Forms.DecisionForm.CreateForm();
+            form.SetDescription("Are you sure?");
+            bool isConfirmed = await form.AwaitForDecision();
+            if (isConfirmed)
+            {
+                ExitGame();
+            }
+        }
+        private void RestartGame()
+        {
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[GAME]</color></b>: Player begun <b><color=yellow>new game</color></b>.");
+#endif
+
+
+        }
+        public async void RestartGame_UnityEditor()
+        {
+            var form = UI.Forms.DecisionForm.CreateForm();
+            form.SetDescription("You want to restart?");
+            bool isConfirmed = await form.AwaitForDecision();
+            if (isConfirmed)
+            {
+                RestartGame();
+            }
+        }
     }
 }

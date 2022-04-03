@@ -5,7 +5,6 @@ namespace Core.Units.State
 {
     public class WanderState : BaseState<UnitView>
     {
-        private const float WanderRange = 3f;
         private Vector2 _currentPoint;
         private Vector2 _initPosition;
 
@@ -16,7 +15,7 @@ namespace Core.Units.State
 
         private Vector2 GetRandomDestination()
         {
-            return _initPosition + Random.insideUnitCircle * WanderRange;
+            return _initPosition + Random.insideUnitCircle * Constants.WanderRange;
         }
         private bool ReachedDestination(out Vector2 direction)
         {

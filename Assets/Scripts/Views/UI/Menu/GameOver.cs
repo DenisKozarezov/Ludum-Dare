@@ -1,15 +1,14 @@
-using System;
+using UnityEngine.Events;
 
 namespace Core.UI
 {
     public class GameOver : MenuState
     {
-        public event Action Settings;
+        public UnityEvent StartNew;
 
         public void OpenSettings_UnityEditor()
         {
             MenuController?.SwitchState(MenuStates.Settings);
-            Settings?.Invoke();
         }
     }
 }

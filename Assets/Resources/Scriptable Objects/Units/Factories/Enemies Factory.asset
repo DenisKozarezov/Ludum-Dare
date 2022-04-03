@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4987c2a7db5491c44875d6798b753c92, type: 3}
-  m_Name: Arena Factory
+  m_Script: {fileID: 11500000, guid: 1245f58a9860d1049862c4197593e3bc, type: 3}
+  m_Name: Enemies Factory
   m_EditorClassIdentifier: 
   _units:
   - {fileID: 11400000, guid: 1cc47cb92a94da343be7927329f0949f, type: 2}
   - {fileID: 11400000, guid: 75df70d6d1e521a42a796e5950a119b0, type: 2}
+  - {fileID: 11400000, guid: 9f41c76455422b34a8814da418269a2d, type: 2}
   - {fileID: 11400000, guid: 0764675de8e73244b988a3b217703d39, type: 2}
+  - {fileID: 11400000, guid: 476deb89ea794f84fbdabdc397c21611, type: 2}
