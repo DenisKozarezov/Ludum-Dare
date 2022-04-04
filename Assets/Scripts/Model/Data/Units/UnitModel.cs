@@ -20,8 +20,6 @@ namespace Core.Models
         private Specialization _specialization;
         [SerializeField]
         private RaceType _raceType;
-        [SerializeField]
-        private UnitOwner _owner;
 
         [Space, SerializeField]
         private string _prefabPath;
@@ -36,7 +34,6 @@ namespace Core.Models
         public UnitType UnitType => _unitType;
         public Specialization Specialization => _specialization;
         public RaceType RaceType => _raceType;
-        public UnitOwner Owner => _owner;
         public string PrefabPath => _prefabPath;
         public UnitStats Stats => _stats;       
 
