@@ -29,8 +29,6 @@ public class UpgradeList : MonoBehaviour
         upgrades.Add(new Upgrade(unitsManager, "8", "", "add", "incomePerPercent", 0.5f));
         upgrades.Add(new Upgrade(energyDistribution, "9", "", "add", "incomePerPercent", 0.5f));
         upgrades.Add(new Upgrade(energyDistribution, "10", "", "add", "incomePerPercent", 0.5f));
-
-        SendUpgrades();
     }
 
     public List<Upgrade> GetRandomUpgrades()
