@@ -144,6 +144,8 @@ namespace Core.Units
                 Damage = damage
             });
 
+            if (_sounds.Hit != null) _audioSource.PlayOneShot(_sounds.Hit);
+
             if (!_alreadyHit) StartCoroutine(HitCoroutine());
         }
         private IEnumerator HitCoroutine()
@@ -162,6 +164,8 @@ namespace Core.Units
             StateMachine.SwitchState<DeadState>();
             Died?.Invoke();
 
+            if (_sounds.Death != null) _audioSource.PlayOneShot(_sounds.Death);
+
             Destroy(gameObject, Constants.DeathTimer);
         }
         public void Taunt(UnitView target)
@@ -179,6 +183,9 @@ namespace Core.Units
         {
             if (!CanAttack) return;
             target.Hit(UnitState.UnitStats.Damage, this);
+
+            if (_sounds.Attack != null) _audioSource.PlayOneShot(_sounds.Attack);
+
             StartCoroutine(AttackCoroutine());
         }
         public void Wander()
