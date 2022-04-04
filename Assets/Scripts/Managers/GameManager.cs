@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using Core.UI;
+using UnityEngine.SceneManagement;
 
 namespace Core.Services
 {
@@ -93,6 +94,25 @@ namespace Core.Services
             if (isConfirmed)
             {
                 RestartGame();
+            }
+        }
+        private async void BackToMainMenu()
+        {
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[GAME]</color></b>: Player <b><color=yellow>has left</color></b> the game.");
+#endif
+
+            await CameraExtensions.Fade(FadeMode.In, 2f);
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
+        public async void BackToMainMenu_UnityEditor()
+        {
+            var form = UI.Forms.DecisionForm.CreateForm();
+            form.SetDescription("You want to leave?");
+            bool isConfirmed = await form.AwaitForDecision();
+            if (isConfirmed)
+            {
+                BackToMainMenu();
             }
         }
     }
