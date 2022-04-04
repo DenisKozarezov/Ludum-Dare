@@ -6,11 +6,11 @@ namespace Core.Units.State
     {
         private Vector2 _currentPoint;
         private Vector2 _initPosition;
-        private readonly float _reachDistance;
+        private float _reachDistance;
 
         public WanderState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
-            _reachDistance = unit.Size.magnitude;
+       
         }
 
         private void OnCollided()
@@ -30,6 +30,7 @@ namespace Core.Units.State
 
         public override void Enter()
         {
+            _reachDistance = Unit.Size.magnitude;
             _initPosition = Unit.transform.position;
             _currentPoint = GetRandomDestination();
             Unit.Collided += OnCollided;

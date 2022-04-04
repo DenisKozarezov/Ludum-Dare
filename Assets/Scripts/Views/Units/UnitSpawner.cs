@@ -54,6 +54,10 @@ namespace Core.Units
         {
             _spawning = isSpawning;
         }
+        public void SetSpawnRate(byte rate)
+        {
+            _spawnRate = rate;
+        }
         public void SetSpawnAmount(byte amount)
         {
             _spawnMaxCount = amount;

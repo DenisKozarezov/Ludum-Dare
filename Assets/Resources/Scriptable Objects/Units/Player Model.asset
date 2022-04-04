@@ -18,10 +18,9 @@ MonoBehaviour:
   _unitType: 1
   _specialization: 2
   _raceType: 8
-  _owner: 2
   _prefabPath: Prefabs/Units/Main Hero/Main Hero
   _stats:
-    MaxHealth: 1000
+    MaxHealth: 5
     Damage: 0
     MovementSpeed: 1
     AttackSpeed: 2.31
