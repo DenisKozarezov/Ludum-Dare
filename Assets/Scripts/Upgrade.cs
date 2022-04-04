@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Core.Services;
-using UnityEngine;
+using Core.Units;
 public class Upgrade : IComparable<Upgrade>
 {
     public Operator operatorType;
@@ -11,27 +10,40 @@ public class Upgrade : IComparable<Upgrade>
     public float value;
     public byte useCount = 0;
 
+    public UnitUpgradeArgs args;
+
+    public byte spawnAmount;
+    public byte spawnRate;
+
     protected EnergyDistribution energyDistribution = null;
     protected UnitsManager unitsManager = null;
+    protected WaveManager waveManager = null;
 
     public Upgrade(EnergyDistribution energyDistribution, string name, string desc, string upgradeType, string parameter, float value)
     {
         operatorType = OperatorFactory.CreateOperator(upgradeType);
         this.energyDistribution = energyDistribution;
+        this.name = name;
+        this.desc = desc;
         this.parameter = parameter;
         this.value = value;
-        this.desc = desc;
-        this.name = name;
     }
 
-    public Upgrade(UnitsManager unitsManager, string name, string desc, string upgradeType, string parameter, float value)
+    public Upgrade(UnitsManager unitsManager, string name, string desc, UnitUpgradeArgs args)
     {
-        operatorType = OperatorFactory.CreateOperator(upgradeType);
         this.unitsManager = unitsManager;
-        this.parameter = parameter;
-        this.value = value;
-        this.desc = desc;
         this.name = name;
+        this.desc = desc;
+        this.args = args;
+    }
+
+    public Upgrade(WaveManager waveManager, string name, string desc, byte spawnAmount, byte spawnRate)
+    {
+        this.waveManager = waveManager;
+        this.name = name;
+        this.desc = desc;
+        this.spawnAmount = spawnAmount;
+        this.spawnRate = spawnRate;
     }
 
     public int CompareTo(Upgrade other)
@@ -52,8 +64,13 @@ public class Upgrade : IComparable<Upgrade>
     
     public void UpgradeValue(ref UnitsManager entity)
     {
-        // float paramValue = (float)entity[parameter];
-        // entity[parameter] = operatorType.Update(paramValue, value);
+        entity.UpgradeAllAliveFriendlyUnits(args);
+        useCount++;
+    }
+
+    public void UpgradeValue(ref WaveManager entity)
+    {
+        // entity.UpgradeSpawners(spawnAmount, spawnRate);
         useCount++;
     }
 
@@ -66,6 +83,10 @@ public class Upgrade : IComparable<Upgrade>
         else if (unitsManager != null)
         {
             this.UpgradeValue(ref unitsManager);
+        }
+        else if (waveManager != null)
+        {
+            this.UpgradeValue(ref waveManager);
         }
     }
 }

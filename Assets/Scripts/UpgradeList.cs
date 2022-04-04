@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
+using Core.Units;
 
 public class UpgradeList : MonoBehaviour
 {
@@ -14,21 +14,26 @@ public class UpgradeList : MonoBehaviour
     
     public EnergyDistribution energyDistribution;
     public UnitsManager unitsManager;
+    public WaveManager waveManager;
 
-    private void Start() {
+    private void Start()
+    {
         energyDistribution = this.GetComponent<EnergyDistribution>();
         unitsManager = this.GetComponent<UnitsManager>();
+        waveManager = this.GetComponent<WaveManager>();
 
-        upgrades.Add(new Upgrade(energyDistribution, "1", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(unitsManager, "2", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(energyDistribution, "3", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(unitsManager, "4", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(energyDistribution, "5", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(energyDistribution, "6", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(unitsManager, "7", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(unitsManager, "8", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(energyDistribution, "9", "", "add", "incomePerPercent", 0.5f));
-        upgrades.Add(new Upgrade(energyDistribution, "10", "", "add", "incomePerPercent", 0.5f));
+        upgrades.Add(new Upgrade(energyDistribution, "energy", "", "add", "incomePerPercent", 0.5f));
+        upgrades.Add(new Upgrade(unitsManager, "units", "", new UnitUpgradeArgs {
+            AddDamage = 5f
+        }));
+        upgrades.Add(new Upgrade(waveManager, "unitSpawner", "", 2, 2));
+        // upgrades.Add(new Upgrade(unitsManager, "4", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(energyDistribution, "5", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(energyDistribution, "6", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(unitsManager, "7", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(unitsManager, "8", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(energyDistribution, "9", "", "add", "incomePerPercent", 0.5f));
+        // upgrades.Add(new Upgrade(energyDistribution, "10", "", "add", "incomePerPercent", 0.5f));
     }
 
     public List<Upgrade> GetRandomUpgrades()
