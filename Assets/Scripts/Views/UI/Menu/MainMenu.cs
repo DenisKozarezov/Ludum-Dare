@@ -1,19 +1,43 @@
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Core.UI
 {
     public class MainMenu : MenuState
     {
+        [SerializeField]
+        private AudioSource _audioSource;
+        [SerializeField]
+        private AudioClip _newGameSound;
+
+        public UnityEvent StartNew;
+
         private async void Start()
         {
             await CameraExtensions.Fade(FadeMode.Out);
         }
 
+        private void SetInteractable(bool isInteractable)
+        {
+            foreach (var button in GetComponentsInChildren<Button>())
+            {
+                button.interactable = isInteractable;
+            }
+        }
+
         public async void StartGame_UnityEditor()
         {
+            StartNew?.Invoke();
+            SetInteractable(false);
+            _audioSource.PlayOneShot(_newGameSound);
+            
             await CameraExtensions.Fade(FadeMode.In);
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+            await Task.Delay(System.TimeSpan.FromSeconds(2f));
+            
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
         }
         public void Settings_UnityEditor()
         {

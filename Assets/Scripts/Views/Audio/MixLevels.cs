@@ -10,7 +10,7 @@ namespace Core.Audio
         private const string MUSIC_LEVEL = "MusicLevel";
         private const string ENVIRONMENT_LEVEL = "EnvironmentLevel";
 
-        private readonly float MinLevel = -30;
+        private readonly float MinLevel = -20;
         private readonly float MaxLevel = 0;
 
         [SerializeField]
