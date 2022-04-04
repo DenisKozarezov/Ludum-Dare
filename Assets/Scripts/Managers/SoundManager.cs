@@ -1,18 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+namespace Core.Audio
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SoundManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField]
+        private AudioSource _musicSource;
+        [SerializeField]
+        private AnimationCurve _fadeCurve;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private IEnumerator FadeSound(float time = 3f)
+        {
+            if (_musicSource != null)
+            {
+                float factor = 0;
+                while (factor < 1)
+                {
+                    _musicSource.volume = _fadeCurve.Evaluate(factor += Time.deltaTime / time);
+                    yield return null;
+                }
+            }
+        }
+        public void Fade(float time = 3f)
+        {
+            StartCoroutine(FadeSound(time));
+        }
     }
 }

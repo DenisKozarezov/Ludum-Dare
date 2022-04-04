@@ -30,6 +30,13 @@ namespace Core.UI
             SettingsReset.AddListener(OnSettingsReset);
             SettingsApplied.AddListener(OnSettingsApplied);
         }
+        private void OnEnable()
+        {
+            _globalVolume.Value = _mixLevels.GlobalLevel;
+            _unitsVolume.Value = _mixLevels.UnitsLevel;
+            _musicVolume.Value = _mixLevels.MusicLevel;
+            _environmentVolume.Value = _mixLevels.EnvironmentLevel;
+        }
 
         private void OnSettingsReset()
         {

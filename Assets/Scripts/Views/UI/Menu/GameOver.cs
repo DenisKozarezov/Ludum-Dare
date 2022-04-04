@@ -10,7 +10,7 @@ namespace Core.UI
         public async void BackToMainMenu_UnityEditor()
         {
             await CameraExtensions.Fade(FadeMode.In);
-            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         public void OpenSettings_UnityEditor()
         {
