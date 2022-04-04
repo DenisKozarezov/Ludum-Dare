@@ -5,7 +5,7 @@ using Core.Units;
 namespace Core.Models
 {
     [CreateAssetMenu(menuName = "Configuration/Units/Create Unit Factory")]
-    public class UnitFactory : ScriptableObject
+    public class UnitFactory : ScriptableObject, IUnitFactory
     {
         [SerializeField]
         private List<UnitModel> _units;
@@ -28,6 +28,21 @@ namespace Core.Models
         {
             var config = GetRandomConfig();
             return Services.UnitsManager.InstantiateUnit(config.ID);
+        }
+
+        public void AddUnit(UnitModel model)
+        {
+            if (!_units.Contains(model)) _units.Add(model);
+        }
+
+        public UnitFactory Clone()
+        {
+            List<UnitModel> list = new List<UnitModel>();
+            list.AddRange(_units);
+            return new UnitFactory
+            {
+                _units = list
+            };
         }
     }
 }
