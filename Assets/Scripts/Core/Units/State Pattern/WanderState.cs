@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace Core.Units.State
@@ -7,10 +6,16 @@ namespace Core.Units.State
     {
         private Vector2 _currentPoint;
         private Vector2 _initPosition;
+        private readonly float _reachDistance;
 
         public WanderState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
+            _reachDistance = unit.Size.magnitude;
+        }
 
+        private void OnCollided()
+        {
+            _currentPoint = GetRandomDestination();
         }
 
         private Vector2 GetRandomDestination()
@@ -20,17 +25,18 @@ namespace Core.Units.State
         private bool ReachedDestination(out Vector2 direction)
         {
             direction = _currentPoint - (Vector2)Unit.transform.position;
-            return direction.sqrMagnitude <= 0.1f;
+            return direction.sqrMagnitude <= _reachDistance;
         }
 
         public override void Enter()
         {
             _initPosition = Unit.transform.position;
             _currentPoint = GetRandomDestination();
+            Unit.Collided += OnCollided;
         }
         public override void Exit()
         {
-           
+            Unit.Collided -= OnCollided;
         }
         public override void Update()
         {
