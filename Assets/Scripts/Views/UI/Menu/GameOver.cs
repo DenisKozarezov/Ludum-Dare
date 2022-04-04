@@ -1,16 +1,15 @@
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 namespace Core.UI
 {
     public class GameOver : MenuState
     {
         public UnityEvent StartNew;
+        public UnityEvent BackToMainMenu;
 
-        public async void BackToMainMenu_UnityEditor()
+        public void BackToMainMenu_UnityEditor()
         {
-            await CameraExtensions.Fade(FadeMode.In);
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
+            BackToMainMenu?.Invoke();
         }
         public void OpenSettings_UnityEditor()
         {

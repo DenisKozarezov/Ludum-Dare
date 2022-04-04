@@ -32,17 +32,27 @@ namespace Core.UI
         }
         private void OnEnable()
         {
+            UpdateSettings();
+        }
+
+        private void UpdateSettings()
+        {
             _globalVolume.Value = _mixLevels.GlobalLevel;
             _unitsVolume.Value = _mixLevels.UnitsLevel;
             _musicVolume.Value = _mixLevels.MusicLevel;
             _environmentVolume.Value = _mixLevels.EnvironmentLevel;
         }
-
         private void OnSettingsReset()
         {
 #if UNITY_EDITOR
             Debug.Log("<b><color=green>[SETTINGS]</color></b>: All settings were <b><color=yellow>successfully</color></b> reset.");
 #endif
+
+            _mixLevels.GlobalLevel = 1f;
+            _mixLevels.UnitsLevel = 1f;
+            _mixLevels.MusicLevel = 0.8f;
+            _mixLevels.EnvironmentLevel = 1f;
+            UpdateSettings();
         }
         private void OnSettingsApplied()
         {
