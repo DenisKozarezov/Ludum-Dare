@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using Core.Units;
-using System.Threading;
 
 namespace Core.Services
 {
     public class WaveManager : MonoBehaviour
     {
+        [SerializeField]
+        private EnergyDistribution _energyDistribution;
         [Header("Options")]
         [SerializeField, Min(0)]
         private float _delayBeforeWave;
@@ -38,6 +39,7 @@ namespace Core.Services
         private void OnUnitManufactured(UnitView unit)
         {
             _enemiesCount++;
+            _energyDistribution.SpendEnergy(unit.UnitData.Stats.Cost);
             unit.Died += () =>
             {
                 if (unit is IEnemy) _enemiesCount--;

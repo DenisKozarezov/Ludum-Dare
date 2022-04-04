@@ -33,6 +33,11 @@ namespace Core.Services
             player.transform.position = _playerSpawn.transform.position;
 
             await Task.Delay(TimeSpan.FromSeconds(_preparationTime));
+
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[GAME]</color></b>: Game <b><color=yellow>started</color></b>.");
+#endif
+
             GameStart?.Invoke();
         }
 

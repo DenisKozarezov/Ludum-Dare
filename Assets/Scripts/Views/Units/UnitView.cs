@@ -6,6 +6,7 @@ using Core.Units.State;
 
 namespace Core.Units
 {
+    [RequireComponent(typeof(Collider2D))]
     public class UnitView : MonoBehaviour
     {
         [SerializeField]
@@ -33,6 +34,8 @@ namespace Core.Units
             }
         }
 
+        public Vector2 Size => GetComponent<Collider2D>().bounds.size;
+
         // ============ ANIMATION KEYS ============
         protected const string IDLE_KEY = "Idle";
         protected const string ATTACK_KEY = "Attack";
@@ -55,6 +58,7 @@ namespace Core.Units
 
         public event Action<UnitRecievedDamageArgs> RecievedDamage;
         public event Action Died;
+        public event Action Collided;
 
         protected virtual void Awake()
         {
@@ -163,6 +167,11 @@ namespace Core.Units
             CanAttack = false;
             yield return new WaitForSeconds(UnitData.Stats.AttackSpeed);
             CanAttack = true;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Collided?.Invoke();
         }
     }
 }

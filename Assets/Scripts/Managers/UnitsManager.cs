@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using Core.Units;
 using Core.Models;
-using UnityEngine.Events;
 
 namespace Core.Services
 {
@@ -14,8 +13,6 @@ namespace Core.Services
 
         [SerializeField]
         private Transform _unitsRoot;
-        [SerializeField]
-        private EnergyDistribution _energyDistribution;
 
         private Lazy<UnitModel[]> AllUnits;
         private Dictionary<UnitView, UnitState> Units = new Dictionary<UnitView, UnitState>();
@@ -65,9 +62,6 @@ namespace Core.Services
             {
                 unit.RecievedDamage -= OnRecievedDamage;
             };
-
-            _energyDistribution.SpendEnergy(unit.UnitData.Stats.Cost);
-
             RegisterUnit(unit);
         }
         private void OnRecievedDamage(UnitRecievedDamageArgs args)
