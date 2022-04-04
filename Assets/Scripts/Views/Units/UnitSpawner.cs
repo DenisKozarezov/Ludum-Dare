@@ -13,6 +13,8 @@ namespace Core.Units
         private float _spawnRate;
         [SerializeField]
         private byte _spawnMaxCount;
+        [SerializeField]
+        public float _energySpawnRate = 0f;
 
         [SerializeField]
         private UnitFactory _factory;
@@ -40,7 +42,7 @@ namespace Core.Units
                 unit.transform.position = transform.position;
                 unit.UnitState.Owner = _owner;
                 _counter++;
-                _timer = _spawnRate;
+                _timer = _spawnRate + _energySpawnRate;
                 UnitManufactured?.Invoke(unit);
             }           
         }
@@ -53,6 +55,10 @@ namespace Core.Units
         public void Enable(bool isSpawning)
         {
             _spawning = isSpawning;
+        }
+        public void SetEnergySpawnRate(byte energySpawnRate)
+        {
+            _energySpawnRate = energySpawnRate;
         }
         public void SetSpawnRate(byte rate)
         {

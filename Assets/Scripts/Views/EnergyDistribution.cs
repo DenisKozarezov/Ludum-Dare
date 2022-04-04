@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using Core.Services;
 
 public class EnergyDistribution : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class EnergyDistribution : MonoBehaviour
     private bool _enabled;
 
     public Slider percentageSlider;
-    
+    public WaveManager waveManager;
+
     public int baseDivision = 100;
     public float energyLimit = 1000f;
 
@@ -64,6 +66,7 @@ public class EnergyDistribution : MonoBehaviour
     {
         armyPercentage = percentageSlider.value;
         energyPercentage = 100f - percentageSlider.value;
+        waveManager.UpgradeEnergySpawnRate((byte)(coeff*armyPercentage/10));
         OnValueChange?.Invoke();
     }
 

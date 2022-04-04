@@ -1,6 +1,7 @@
 using System;
 using Core.Services;
 using Core.Units;
+using UnityEngine;
 public class Upgrade : IComparable<Upgrade>
 {
     public Operator operatorType;
@@ -59,18 +60,21 @@ public class Upgrade : IComparable<Upgrade>
     {
         float paramValue = (float)entity[parameter];
         entity[parameter] = operatorType.Update(paramValue, value);
+        Debug.Log("upgraded energy");
         useCount++;
     }
     
     public void UpgradeValue(ref UnitsManager entity)
     {
         entity.UpgradeAllAliveFriendlyUnits(args);
+        Debug.Log("upgraded units");
         useCount++;
     }
 
     public void UpgradeValue(ref WaveManager entity)
     {
-        // entity.UpgradeSpawners(spawnAmount, spawnRate);
+        entity.UpgradeSpawners(spawnAmount, spawnRate);
+        Debug.Log("upgraded spawner");
         useCount++;
     }
 

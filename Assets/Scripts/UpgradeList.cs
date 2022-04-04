@@ -18,13 +18,13 @@ public class UpgradeList : MonoBehaviour
 
     private void Start()
     {
-        energyDistribution = this.GetComponent<EnergyDistribution>();
-        unitsManager = this.GetComponent<UnitsManager>();
-        waveManager = this.GetComponent<WaveManager>();
-
         upgrades.Add(new Upgrade(energyDistribution, "energy", "", "add", "incomePerPercent", 0.5f));
         upgrades.Add(new Upgrade(unitsManager, "units", "", new UnitUpgradeArgs {
-            AddDamage = 5f
+            AddMaxHealth = 1f,
+            AddDamage = 1f,
+            AddMovementSpeed = 100f,
+            AddAttackSpeed = 1f,
+            AddHpRegeneration = 1f
         }));
         upgrades.Add(new Upgrade(waveManager, "unitSpawner", "", 2, 2));
         // upgrades.Add(new Upgrade(unitsManager, "4", "", "add", "incomePerPercent", 0.5f));

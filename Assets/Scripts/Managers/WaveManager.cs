@@ -53,17 +53,24 @@ namespace Core.Services
             await Task.Delay(TimeSpan.FromSeconds(_delayBeforeWave));
             StartWave();
         }
-        private void UpgradeSpawners(byte addSpawnRate, byte addSpawnAmount)
+        public void UpgradeSpawners(byte addSpawnRate, byte addSpawnAmount)
         {
            foreach (var spawner in _spawners)
            {
                 switch (spawner.Owner)
                 {
                     case UnitOwner.Player:
-                        spawner.SetSpawnRate((byte)(spawner.SpawnMaxCount + addSpawnRate));
+                        spawner.SetSpawnRate((byte)(addSpawnRate));
                         spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + addSpawnAmount));
                         break;
                 }
+           }
+        }
+        public void UpgradeEnergySpawnRate(byte energySpawnRate)
+        {
+            foreach (var spawner in _spawners)
+           {
+                if (spawner.Owner == UnitOwner.Player) spawner.SetEnergySpawnRate((byte)(energySpawnRate));
            }
         }
         private void ActivateSpawners(bool isActive)

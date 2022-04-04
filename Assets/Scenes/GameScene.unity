@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   percentageSlider: {fileID: 8607128853762441157}
+  waveManager: {fileID: 822063960}
   baseDivision: 100
   energyLimit: 1000
   count: 100
@@ -539,9 +540,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9c23ef296123c49a791a2099c0afda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _owner: 0
+  _owner: 2
   _spawnRate: 2
   _spawnMaxCount: 5
+  _energySpawnRate: 0
   _factory: {fileID: 11400000, guid: 64910bf89d2bf5b45b916a86c664a98f, type: 2}
 --- !u!1 &519420028
 GameObject:
@@ -939,7 +941,19 @@ MonoBehaviour:
   - {fileID: 497354870}
   WaveBegin:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 822063961}
+        m_TargetAssemblyTypeName: UpgradeList, Assembly-CSharp
+        m_MethodName: SendUpgrades
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   WaveEnded:
     m_PersistentCalls:
       m_Calls:
@@ -969,7 +983,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradePanel: {fileID: 1503794473}
   energyDistribution: {fileID: 109780370}
-  unitsManager: {fileID: 0}
+  unitsManager: {fileID: 1559042299}
+  waveManager: {fileID: 822063960}
 --- !u!1 &846137972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1058,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3829461195161384445}
     m_Modifications:
+    - target: {fileID: 911489825579272987, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 822063961}
+    - target: {fileID: 911489825579272987, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableButtons
+      objectReference: {fileID: 0}
+    - target: {fileID: 911489825733949074, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 822063961}
+    - target: {fileID: 911489825733949074, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableButtons
+      objectReference: {fileID: 0}
     - target: {fileID: 911489825913853585, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1077,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 911489825913853585, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -699.05
+      value: -413.22
       objectReference: {fileID: 0}
     - target: {fileID: 911489825913853585, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1113,7 +1144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 911489825913853585, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.48999
+      value: -11.609985
       objectReference: {fileID: 0}
     - target: {fileID: 911489825913853585, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1131,9 +1162,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradePanel
       objectReference: {fileID: 0}
-    - target: {fileID: 911489825913853586, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 911489826224128038, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 822063961}
+    - target: {fileID: 911489826224128038, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableButtons
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fed3ba6d1385bdf41b149deae51e3f6c, type: 3}
@@ -9238,8 +9273,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 52942176908996222}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
