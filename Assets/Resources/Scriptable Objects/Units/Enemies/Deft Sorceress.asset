@@ -18,11 +18,10 @@ MonoBehaviour:
   _unitType: 0
   _specialization: 2
   _raceType: 1
-  _owner: 1
   _prefabPath: Prefabs/Units/Enemies/Deft Sorceress/Deft Sorceress
   _stats:
     MaxHealth: 150
-    Damage: 0
+    Damage: 15
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 0

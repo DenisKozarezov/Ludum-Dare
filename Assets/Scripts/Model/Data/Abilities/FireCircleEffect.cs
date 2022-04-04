@@ -18,6 +18,7 @@ namespace Core.Abilities
         public override void Execute()
         {
             var effect = CreateEffect();
+            var sound = CreateSound();
 
             Collider2D[] result = new Collider2D[50];
             int hits = Physics2D.OverlapCircleNonAlloc(PlayerView.Instance.transform.position, _range, result, _layer.value);

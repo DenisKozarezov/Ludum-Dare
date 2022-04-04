@@ -15,6 +15,8 @@ MonoBehaviour:
   _id: 1
   _displayName: Fire Circle
   _description: 
+  _effectPrefabPath: 
+  _effectSound: {fileID: 8300000, guid: 61a9cf6df75f6204b9c7cb413ecdc85c, type: 3}
   _layer:
     serializedVersion: 2
     m_Bits: 64

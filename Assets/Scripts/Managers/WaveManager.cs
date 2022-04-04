@@ -10,8 +10,6 @@ namespace Core.Services
     {
         [SerializeField]
         private EnergyDistribution _energyDistribution;
-        [SerializeField]
-        private UnitsManager _unitsManager;
         [Header("Options")]
         [SerializeField, Min(0)]
         private float _delayBeforeWave;
@@ -51,35 +49,19 @@ namespace Core.Services
         }
         private async void OnWaveEnded()
         {
-            UpgradeUnits();
-            UpgradeSpawners();
-
             if (!_enable) return;
             await Task.Delay(TimeSpan.FromSeconds(_delayBeforeWave));
             StartWave();
         }
-        private void UpgradeUnits()
-        {
-            _unitsManager.UpgradeAllAliveFriendlyUnits(new UnitUpgradeArgs
-            {
-                AddMaxHealth = 10,
-                AddDamage = 20,
-                AddAttackSpeed = 15,
-                AddHpRegeneration = 0, 
-                AddMovementSpeed = 2f
-            });
-        }
-        private void UpgradeSpawners()
+        private void UpgradeSpawners(byte addSpawnRate, byte addSpawnAmount)
         {
            foreach (var spawner in _spawners)
            {
                 switch (spawner.Owner)
                 {
-                    case UnitOwner.Enemy:
-                        spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + 1));
-                        break;
                     case UnitOwner.Player:
-                        spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + 2));
+                        spawner.SetSpawnRate((byte)(spawner.SpawnMaxCount + addSpawnRate));
+                        spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + addSpawnAmount));
                         break;
                 }
            }

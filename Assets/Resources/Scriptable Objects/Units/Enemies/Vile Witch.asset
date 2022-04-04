@@ -18,11 +18,10 @@ MonoBehaviour:
   _unitType: 1
   _specialization: 2
   _raceType: 2
-  _owner: 1
   _prefabPath: Prefabs/Units/Enemies/Vile Witch/Vile Witch
   _stats:
     MaxHealth: 150
-    Damage: 0
+    Damage: 15
     MovementSpeed: 1
     AttackSpeed: 2
     Cost: 0
