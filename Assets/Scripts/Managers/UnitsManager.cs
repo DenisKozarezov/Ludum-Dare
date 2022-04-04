@@ -81,15 +81,15 @@ namespace Core.Services
         }
         private void OnUnitHealed(UnitView unit, float value)
         {
-            if (!Units.ContainsKey(unit) || Units[unit].Health == Units[unit].MaxHealth) return;
+            if (!Units.ContainsKey(unit) || Units[unit].Health == Units[unit].UnitStats.MaxHealth) return;
 
-            if (Units[unit].Health + value <= Units[unit].MaxHealth)
+            if (Units[unit].Health + value <= Units[unit].UnitStats.MaxHealth)
             {
                 Units[unit].Health += value;
             }
             else
             {
-                Units[unit].Health = Units[unit].MaxHealth;
+                Units[unit].Health = Units[unit].UnitStats.MaxHealth;
             }
         }
 
@@ -110,14 +110,32 @@ namespace Core.Services
         private void RegisterUnit(UnitView unit)
         {
             if (Units.ContainsKey(unit)) return;
-            Units.Add(unit, unit.CreateState());
+            Units.Add(unit, unit.UnitState);
+        }
+
+        public void UpgradeAllAliveFriendlyUnits(UnitUpgradeArgs args)
+        {
+            foreach (var unit in Units)
+            {
+                if (unit.Key.UnitState.Owner != UnitOwner.Player) continue;
+
+                unit.Value.UnitStats.MaxHealth += args.AddMaxHealth;
+                unit.Value.UnitStats.AttackSpeed += args.AddAttackSpeed;
+                unit.Value.UnitStats.Damage += args.AddDamage;
+                unit.Value.UnitStats.MovementSpeed += args.AddMovementSpeed;
+                unit.Value.UnitStats.HpRegeneration += args.AddHpRegeneration;
+            }
+
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[UNITS]</color></b>: All friendly units were <b><color=yellow>upgraded</color></b>.");
+#endif
         }
 
         public static UnitView GetNearestEnemy(UnitView target)
         {
             float max = float.MinValue;
             UnitView result = null;
-            foreach (var unit in _instance.Units.Keys.Where(x => x.UnitData.Owner != target.UnitData.Owner))
+            foreach (var unit in _instance.Units.Keys.Where(x => x.UnitState.Owner != target.UnitState.Owner))
             {
                 float distance = (unit.transform.position - target.transform.position).sqrMagnitude;
                 if (distance < max)
