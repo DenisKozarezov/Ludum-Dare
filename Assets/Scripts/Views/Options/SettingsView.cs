@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Core.Audio;
+using Core.UI.Visual;
 
 namespace Core.UI
 {
@@ -7,6 +9,18 @@ namespace Core.UI
     {
         [SerializeField]
         private RectTransform _contentTransform;
+        [SerializeField]
+        private MixLevels _mixLevels;
+        
+        [Header("Settings Elements")]
+        [SerializeField]
+        private SliderVisualElement _globalVolume;
+        [SerializeField]
+        private SliderVisualElement _unitsVolume;
+        [SerializeField]
+        private SliderVisualElement _musicVolume;
+        [SerializeField]
+        private SliderVisualElement _environmentVolume;
 
         public UnityEvent SettingsReset;
         public UnityEvent SettingsApplied;
@@ -25,6 +39,11 @@ namespace Core.UI
         }
         private void OnSettingsApplied()
         {
+            _mixLevels.GlobalLevel = _globalVolume.Value;
+            _mixLevels.UnitsLevel = _unitsVolume.Value;
+            _mixLevels.MusicLevel = _musicVolume.Value;
+            _mixLevels.EnvironmentLevel = _environmentVolume.Value;
+
 #if UNITY_EDITOR
             Debug.Log("<b><color=green>[SETTINGS]</color></b>: All settings were <b><color=yellow>successfully</color></b> applied and saved.");
 #endif
