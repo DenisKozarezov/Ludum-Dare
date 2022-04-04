@@ -1,3 +1,6 @@
+using System;
+using UnityEngine;
+
 namespace Core.Units
 {
     public struct UnitRecievedDamageArgs
@@ -14,5 +17,13 @@ namespace Core.Units
         public float AddMovementSpeed;
         public float AddAttackSpeed;
         public float AddHpRegeneration;
+    }
+
+    [Serializable]
+    public struct UnitSounds
+    {
+        public AudioClip Death;
+        public AudioClip Attack;
+        public AudioClip Hit;
     }
 }

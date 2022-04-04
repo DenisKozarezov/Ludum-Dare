@@ -20,6 +20,12 @@ namespace Core.Units
         [SerializeField]
         private RangeCheckingSystem _rangeCheckingSystem;
 
+        [Header("Sounds")]
+        [SerializeField]
+        private AudioSource _audioSource;
+        [SerializeField]
+        private UnitSounds _sounds;
+
         private UnitState _unitState;
         public UnitState UnitState
         {
