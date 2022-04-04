@@ -64,6 +64,7 @@ namespace Core.Services
         public async void ExitGame_UnityEditor()
         {
             var form = UI.Forms.DecisionForm.CreateForm();
+            form.SetLabel("Exit");
             form.SetDescription("Are you sure?");
             bool isConfirmed = await form.AwaitForDecision();
             if (isConfirmed)

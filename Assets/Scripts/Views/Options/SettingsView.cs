@@ -7,39 +7,45 @@ namespace Core.UI
     {
         [SerializeField]
         private RectTransform _contentTransform;
-        private int _currentTab = 0;
 
+        public UnityEvent SettingsReset;
         public UnityEvent SettingsApplied;
 
         private void Awake()
         {
+            SettingsReset.AddListener(OnSettingsReset);
             SettingsApplied.AddListener(OnSettingsApplied);
         }
 
+        private void OnSettingsReset()
+        {
+#if UNITY_EDITOR
+            Debug.Log("<b><color=green>[SETTINGS]</color></b>: All settings were <b><color=yellow>successfully</color></b> reset.");
+#endif
+        }
         private void OnSettingsApplied()
         {
 #if UNITY_EDITOR
             Debug.Log("<b><color=green>[SETTINGS]</color></b>: All settings were <b><color=yellow>successfully</color></b> applied and saved.");
 #endif
         }
-        public void OpenTab(int index)
+   
+        public async void Reset_UnityEditor()
         {
-            if (_contentTransform.childCount == 0 || _currentTab == index || index < 0) return;
+            var form = Forms.DecisionForm.CreateForm();
+            form.SetLabel("Reset");
+            form.SetDescription("Are you sure?");
+            bool isConfirmed = await form.AwaitForDecision();
 
-            _currentTab = index;
-            for (int i = 0; i < _contentTransform.childCount; i++)
+            if (isConfirmed)
             {
-                _contentTransform.GetChild(i).gameObject.SetActive(false);
+                SettingsReset?.Invoke();
             }
-
-            if (index >= _contentTransform.childCount) return;
-            var tab = _contentTransform.GetChild(index);
-            tab.gameObject.SetActive(true);
         }
         public async void Apply_UnityEditor()
         {
             var form = Forms.DecisionForm.CreateForm();
-            form.SetLabel("Options");
+            form.SetLabel("Apply settings");
             form.SetDescription("Are you sure?");
             bool isConfirmed = await form.AwaitForDecision();
 

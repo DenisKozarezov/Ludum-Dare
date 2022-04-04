@@ -19,16 +19,16 @@ namespace Core.UI
         [SerializeField]
         private TextMeshProUGUI _manacostText;
 
+        private bool _isReady = true;
         private Ability _ability;
 
         public event Action<Transform> PointerEnter;
         public event Action PointerExit;
-        public event Action CooldownReady;
+        public event Action<Ability> Cast;
 
-        private void OnAbilityCasted()
+        private void OnClick()
         {
-            if (_ability.Effect == null) return;
-            _ability.Effect.Execute();
+            if (_isReady) Cast?.Invoke(_ability);
         }
 
         public void SetData(ref Ability ability)
@@ -36,9 +36,10 @@ namespace Core.UI
             _ability = ability;
             _manacostText.text = ability.Manacost.ToString();
             _icon.sprite = ability.Icon;
-            _button.onClick.AddListener(OnAbilityCasted);
+            _button.onClick.AddListener(OnClick);
+            _button.onClick.AddListener(StartCooldown);
         }
-        public void StartCooldown()
+        private void StartCooldown()
         {
             StartCoroutine(CooldownCoroutine(_ability.Cooldown));
         }
@@ -46,6 +47,7 @@ namespace Core.UI
         {
             _cooldownImage.gameObject.SetActive(true);
             _button.interactable = false;
+            _isReady = false;
             float factor = 0;
             while (factor < 1)
             {
@@ -54,7 +56,7 @@ namespace Core.UI
             }
             _cooldownImage.gameObject.SetActive(false);
             _button.interactable = true;
-            CooldownReady?.Invoke();
+            _isReady = true;
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
