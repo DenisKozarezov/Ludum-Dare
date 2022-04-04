@@ -10,13 +10,15 @@ namespace Core.Services
     {
         [SerializeField]
         private EnergyDistribution _energyDistribution;
+        [SerializeField]
+        private UnitsManager _unitsManager;
         [Header("Options")]
         [SerializeField, Min(0)]
         private float _delayBeforeWave;
         [SerializeField]
         private byte _increasePerWave;
 
-        private bool _spawning;
+        private bool _enable = true;
         private ushort _enemiesCount;
         private byte _wavesCount;
 
@@ -38,19 +40,49 @@ namespace Core.Services
 
         private void OnUnitManufactured(UnitView unit)
         {
-            _enemiesCount++;
+            if (unit is IEnemy) _enemiesCount++;
             _energyDistribution.SpendEnergy(unit.UnitData.Stats.Cost);
             unit.Died += () =>
             {
                 if (unit is IEnemy) _enemiesCount--;
-                if (_enemiesCount == 0) EndWave();
+                Debug.Log(_enemiesCount);
+                if (_enemiesCount == 0) EndWave();         
             };
         }
         private async void OnWaveEnded()
         {
-            if (!_spawning) return;
+            UpgradeUnits();
+            UpgradeSpawners();
+
+            if (!_enable) return;
             await Task.Delay(TimeSpan.FromSeconds(_delayBeforeWave));
             StartWave();
+        }
+        private void UpgradeUnits()
+        {
+            _unitsManager.UpgradeAllAliveFriendlyUnits(new UnitUpgradeArgs
+            {
+                AddMaxHealth = 10,
+                AddDamage = 20,
+                AddAttackSpeed = 15,
+                AddHpRegeneration = 0, 
+                AddMovementSpeed = 2f
+            });
+        }
+        private void UpgradeSpawners()
+        {
+           foreach (var spawner in _spawners)
+           {
+                switch (spawner.Owner)
+                {
+                    case UnitOwner.Enemy:
+                        spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + 1));
+                        break;
+                    case UnitOwner.Player:
+                        spawner.SetSpawnAmount((byte)(spawner.SpawnMaxCount + 2));
+                        break;
+                }
+           }
         }
         private void ActivateSpawners(bool isActive)
         {
@@ -86,7 +118,7 @@ namespace Core.Services
         public void EndGame()
         {
             ActivateSpawners(false);
-            _spawning = false;
+            _enable = false;
         }
     }
 }

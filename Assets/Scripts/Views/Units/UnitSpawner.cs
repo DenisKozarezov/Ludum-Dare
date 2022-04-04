@@ -7,6 +7,8 @@ namespace Core.Units
     public class UnitSpawner : MonoBehaviour, IUnitSpawner
     {
         [Header("Options")]
+        [SerializeField]
+        private UnitOwner _owner;
         [SerializeField, Min(0)]
         private float _spawnRate;
         [SerializeField]
@@ -19,6 +21,7 @@ namespace Core.Units
         private float _timer;
         private byte _counter;
 
+        public UnitOwner Owner => _owner;
         public byte SpawnMaxCount => _spawnMaxCount;
 
         public event Action<UnitView> UnitManufactured;
@@ -35,6 +38,7 @@ namespace Core.Units
             {
                 var unit = SpawnUnit();
                 unit.transform.position = transform.position;
+                unit.UnitState.Owner = _owner;
                 _counter++;
                 _timer = _spawnRate;
                 UnitManufactured?.Invoke(unit);

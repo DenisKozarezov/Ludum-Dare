@@ -20,6 +20,15 @@ namespace Core.Units
         [SerializeField]
         private RangeCheckingSystem _rangeCheckingSystem;
 
+        private UnitState _unitState;
+        public UnitState UnitState
+        {
+            get
+            {
+                if (_unitState == null) _unitState = CreateState();
+                return _unitState;
+            }
+        }
         public UnitModel UnitData
         {
             get
@@ -33,7 +42,7 @@ namespace Core.Units
                 return _unitData;
             }
         }
-
+    
         public Vector2 Size => GetComponent<Collider2D>().bounds.size;
 
         // ============ ANIMATION KEYS ============
@@ -69,14 +78,32 @@ namespace Core.Units
         }
         protected virtual void Start()
         {
-            if (UnitData == null) return;
+            if (_unitData == null) return;
             StateMachine.SwitchState<WanderState>();
         }
         private void Update()
         {
-            if (UnitData == null || Dead) return;
+            if (_unitData == null || Dead) return;
 
             StateMachine.CurrentState?.Update();
+        }
+
+        protected virtual UnitState CreateState()
+        {
+            return new UnitState
+            {
+                Health = _unitData.Stats.MaxHealth,
+                Owner = UnitOwner.Neutral,
+                UnitStats = new UnitStats
+                {
+                    MaxHealth = _unitData.Stats.MaxHealth,
+                    Damage = _unitData.Stats.Damage,
+                    AttackSpeed = _unitData.Stats.AttackSpeed,
+                    Cost = _unitData.Stats.Cost,
+                    HpRegeneration = _unitData.Stats.HpRegeneration,
+                    MovementSpeed = _unitData.Stats.MovementSpeed,
+                }
+            };
         }
 
         private void OnEnemyDetected(UnitView target)
@@ -86,15 +113,6 @@ namespace Core.Units
                 _rangeCheckingSystem.EnableChecking(false);
                 Taunt(target);
             }
-        }
-
-        public virtual UnitState CreateState()
-        {
-            return new UnitState
-            {
-                MaxHealth = UnitData.Stats.MaxHealth,
-                Health = UnitData.Stats.MaxHealth,                
-            };
         }
 
         public void Disable()
@@ -148,13 +166,13 @@ namespace Core.Units
         }
         public void Translate(Vector2 direction)
         {
-            transform.Translate(direction * UnitData.Stats.MovementSpeed * Time.deltaTime);
+            transform.Translate(direction * UnitState.UnitStats.MovementSpeed * Time.deltaTime);
             _spriteRenderer.flipX = direction.x <= 0;
         }
         public void Attack(UnitView target)
         {
             if (!CanAttack) return;
-            target.Hit(UnitData.Stats.Damage, this);
+            target.Hit(UnitState.UnitStats.Damage, this);
             StartCoroutine(AttackCoroutine());
         }
         public void Wander()
@@ -165,7 +183,7 @@ namespace Core.Units
         private IEnumerator AttackCoroutine()
         {
             CanAttack = false;
-            yield return new WaitForSeconds(UnitData.Stats.AttackSpeed);
+            yield return new WaitForSeconds(UnitState.UnitStats.AttackSpeed);
             CanAttack = true;
         }
 
