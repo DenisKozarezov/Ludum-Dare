@@ -8,20 +8,11 @@ namespace Core
     public class VignetteComponent : MonoBehaviour
     {
         [SerializeField]
-        private bool _autoStart;
-        [SerializeField]
         private RawImage _image;
         [SerializeField, Min(0)]
         private float _startTime;
         private TaskCompletionSource<bool> _taskCompletionSource;
 
-        private async void Start()
-        {
-            if (_autoStart)
-            {
-                await Fade(FadeMode.Out, _startTime);
-            }
-        }
         public async Task Fade(FadeMode mode, float time)
         {
             _taskCompletionSource = new TaskCompletionSource<bool>();

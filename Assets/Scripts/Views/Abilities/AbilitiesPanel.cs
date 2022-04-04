@@ -15,12 +15,24 @@ namespace Core.UI
             Clear();
         }
 
+        private void OnAbilityCast(Ability ability)
+        {
+            if (ability.Effect != null)
+            {
+#if UNITY_EDITOR
+                Debug.Log($"<b><color=green>[ABILITIES]</color></b>: Player is executing <b><color=yellow>{ability.DisplayName}</color></b> effect.");
+#endif
+                ability.Effect.Execute();
+            }
+        }
+
         public void AddAbility(Ability ability)
         {
             GameObject slot = Instantiate(_abilitySlotPrefab, _abilitiesTransform);
             AbilityView view = slot.GetComponent<AbilityView>();
 
             view.SetData(ref ability);
+            view.Cast += OnAbilityCast;
             view.name = $"Ability {ability.DisplayName}";
             view.transform.SetAsLastSibling();
         }

@@ -161,7 +161,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7386547971060469338}
-        m_TargetAssemblyTypeName: Core.UI.OptionsView, Assembly-CSharp
+        m_TargetAssemblyTypeName: Core.UI.SettingsView, Assembly-CSharp
         m_MethodName: Reset_UnityEditor
         m_Mode: 1
         m_Arguments:
@@ -980,6 +980,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contentTransform: {fileID: 2670696529571794173}
+  SettingsReset:
+    m_PersistentCalls:
+      m_Calls: []
   SettingsApplied:
     m_PersistentCalls:
       m_Calls: []

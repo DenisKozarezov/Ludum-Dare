@@ -32,7 +32,11 @@ namespace Core.UI
             {
                 state.Value.gameObject.SetActive(false);
             }
-            _states.First().Value.gameObject.SetActive(_autoActiveWhenStart);
+
+            if (_autoActiveWhenStart)
+            {
+                SwitchState(MenuStates.Menu);
+            }
         }
         private void Update()
         {
