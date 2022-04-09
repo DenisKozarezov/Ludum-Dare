@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5715219760254346287}
   - component: {fileID: 3828153978552696533}
   - component: {fileID: 633158284838926378}
+  - component: {fileID: -7823554042002073282}
   - component: {fileID: 5515091468314211225}
   m_Layer: 3
   m_Name: Corpse Walker
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-7823554042002073282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403423670569013472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5515091468314211225
 AudioSource:
   m_ObjectHideFlags: 0

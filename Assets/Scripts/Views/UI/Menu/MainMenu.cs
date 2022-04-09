@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -15,9 +15,10 @@ namespace Core.UI
 
         public UnityEvent StartNew;
 
-        private async void Start()
+        private IEnumerator Start()
         {
-            await CameraExtensions.Fade(FadeMode.Out);
+            StartCoroutine(CameraExtensions.Fade(FadeMode.Out));
+            yield return null;
         }
 
         private void SetInteractable(bool isInteractable)
@@ -28,14 +29,14 @@ namespace Core.UI
             }
         }
 
-        public async void StartGame_UnityEditor()
+        public IEnumerator StartGame_UnityEditor()
         {
             StartNew?.Invoke();
             SetInteractable(false);
             _audioSource.PlayOneShot(_newGameSound);
             
-            await CameraExtensions.Fade(FadeMode.In);
-            await Task.Delay(System.TimeSpan.FromSeconds(2f));
+            yield return CameraExtensions.Fade(FadeMode.In);
+            yield return new WaitForSeconds(2f);
             
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         }

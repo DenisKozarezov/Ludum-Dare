@@ -1,3 +1,4 @@
+using Core.Units;
 using UnityEngine;
 
 namespace Core.Abilities
@@ -36,6 +37,6 @@ namespace Core.Abilities
             return source;
         }
 
-        public abstract void Execute();
+        public abstract void Execute(UnitView source, UnitView target = null);
     }
 }

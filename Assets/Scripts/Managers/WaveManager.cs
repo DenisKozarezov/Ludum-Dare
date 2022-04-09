@@ -43,7 +43,6 @@ namespace Core.Services
             unit.Died += () =>
             {
                 if (unit is IEnemy) _enemiesCount--;
-                Debug.Log(_enemiesCount);
                 if (_enemiesCount == 0) EndWave();         
             };
         }

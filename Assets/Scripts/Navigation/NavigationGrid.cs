@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,8 +7,13 @@ namespace Core.Navigation
 {
     public class NavigationGrid : MonoBehaviour
     {
+        private static NavigationGrid _instance;
+        public static NavigationGrid Instance => _instance;
+
         [SerializeField]
         private Vector2 _gridSize;
+        [SerializeField]
+        private Vector2 _offset;
         [SerializeField]
         private float _nodeRadius;
         [SerializeField]
@@ -18,11 +24,13 @@ namespace Core.Navigation
         private float NodeDiameter => _nodeRadius * 2;
         private int _gridSizeX, _gridSizeY;
 
-        [HideInInspector]
-        public List<Node> Path;
+        public float NodeRadius => _nodeRadius;
+
+        private IEnumerable<Node> Path;
 
         private void Awake()
         {
+            if (_instance == null) _instance = this;
             _gridSizeX = Mathf.RoundToInt(_gridSize.x / NodeDiameter);
             _gridSizeY = Mathf.RoundToInt(_gridSize.y / NodeDiameter);
             CreateGrid();
@@ -31,19 +39,16 @@ namespace Core.Navigation
         private void CreateGrid()
         {
             _grid = new Node[_gridSizeX, _gridSizeY];
-            _worldBottomLeft = (Vector2)transform.position - Vector2.right * _gridSize.x / 2 - Vector2.up * _gridSize.y / 2;
+            _worldBottomLeft = (Vector2)transform.position - Vector2.right * _gridSize.x / 2 - Vector2.up * _gridSize.y / 2 + _offset;
 
             for (int x = 0; x < _gridSizeX; x++)
             {
                 for (int y = 0; y < _gridSizeY; y++)
                 {
                     Vector2 worldPoint = _worldBottomLeft + Vector2.right * (x * NodeDiameter + _nodeRadius) + Vector2.up * (y * NodeDiameter + _nodeRadius);
-                    _grid[x, y] = new Node(false, worldPoint, x, y);
-
-                    if (_obstacleTilemap.HasTile(_obstacleTilemap.WorldToCell(_grid[x, y].WorldPosition)))
-                        _grid[x, y].SetObstacle(true);
-                    else
-                        _grid[x, y].SetObstacle(false);
+                    bool isObstacle = _obstacleTilemap.HasTile(_obstacleTilemap.WorldToCell(worldPoint));       
+                    
+                    _grid[x, y] = new Node(isObstacle, worldPoint, x, y);
                 }
             }
         }
@@ -81,29 +86,38 @@ namespace Core.Navigation
             return neighbors;
         }
 
-        public Node NodeFromWorldPoint(Vector3 worldPosition)
-        {
-            int x = Mathf.RoundToInt(worldPosition.x - 1 + (_gridSizeX / 2));
-            int y = Mathf.RoundToInt(worldPosition.y + (_gridSizeY / 2));
+        public Node NodeFromWorldPoint(Vector2 worldPosition)
+        {        
+            float deltaX = worldPosition.x - transform.position.x;
+            float deltaY = worldPosition.y - transform.position.y;
+
+            float percentX = (deltaX + _gridSize.x / 2) / _gridSize.x;
+            float percentY = (deltaY + _gridSize.y / 2) / _gridSize.y;
+
+            percentX = Mathf.Clamp01(percentX);
+            percentY = Mathf.Clamp01(percentY);
+            int x = Mathf.RoundToInt((_gridSizeX - 1) * percentX);
+            int y = Mathf.RoundToInt((_gridSizeY - 1) * percentY);
             return _grid[x, y];
+        }
+        public void DrawPath(IEnumerable<Node> path)
+        {
+            Path = path;
         }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(transform.position, new Vector3(_gridSize.x, _gridSize.y, 1));
+            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect((Vector2)transform.position - _gridSize / 2 + _offset, _gridSize), new Color(0,0,0,0), Color.green);
 
             if (_grid != null)
             {
-                foreach (Node n in _grid)
+                foreach (Node node in _grid)
                 {
-                    if (n.Obstacle)
-                        Gizmos.color = Color.red;
-                    else
-                        Gizmos.color = Color.white;
-
-                    if (Path != null && Path.Contains(n)) Gizmos.color = Color.black;
-                    Gizmos.DrawCube(n.WorldPosition, Vector3.one * _nodeRadius);
+                    Gizmos.color = node.Obstacle ? Color.red : Color.white;                 
+                    if (Path != null && Path.Contains(node)) Gizmos.color = Color.green;
+                    
+                    Gizmos.DrawCube(node.WorldPosition, Vector3.one * _nodeRadius);
                 }
             }
         }

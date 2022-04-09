@@ -15,14 +15,14 @@ namespace Core.Abilities
         [SerializeField]
         private byte _unitsCount;
 
-        public override void Execute()
+        public override void Execute(UnitView source, UnitView target = null)
         {
             Collider2D[] result = new Collider2D[_unitsCount];
             int hits = Physics2D.OverlapCircleNonAlloc(PlayerView.Instance.transform.position, _range, result, _layer.value);
             if (hits > 0)
             {
                 result = result.Where(x => x != null).ToArray();
-                foreach (var target in result)
+                foreach (var unit in result)
                 {
                     // Ressurect
                 }

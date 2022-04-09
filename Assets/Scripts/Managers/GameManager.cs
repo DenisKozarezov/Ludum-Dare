@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Core.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace Core.Services
 {
@@ -21,19 +22,19 @@ namespace Core.Services
         public UnityEvent GameStart;
         public UnityEvent GameOver;
 
-        private async void Start()
+        private IEnumerator Start()
         {
-            StartGame();
-            await CameraExtensions.Fade(FadeMode.Out);
+            StartCoroutine(StartGame());
+            yield return CameraExtensions.Fade(FadeMode.Out);
         }
 
-        private async void StartGame()
+        private IEnumerator StartGame()
         {
             var player = UnitsManager.InstantiateUnit(0);
             player.Died += GameOverFunction;
             player.transform.position = _playerSpawn.transform.position;
 
-            await Task.Delay(TimeSpan.FromSeconds(_preparationTime));
+            yield return new WaitForSeconds(_preparationTime);
 
 #if UNITY_EDITOR
             Debug.Log("<b><color=green>[GAME]</color></b>: Game <b><color=yellow>started</color></b>.");
@@ -96,13 +97,13 @@ namespace Core.Services
                 RestartGame();
             }
         }
-        private async void BackToMainMenu()
+        private IEnumerator BackToMainMenu()
         {
 #if UNITY_EDITOR
             Debug.Log("<b><color=green>[GAME]</color></b>: Player <b><color=yellow>has left</color></b> the game.");
 #endif
 
-            await CameraExtensions.Fade(FadeMode.In, 2f);
+            yield return CameraExtensions.Fade(FadeMode.In, 2f);
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         public async void BackToMainMenu_UnityEditor()
@@ -112,7 +113,7 @@ namespace Core.Services
             bool isConfirmed = await form.AwaitForDecision();
             if (isConfirmed)
             {
-                BackToMainMenu();
+                StartCoroutine(BackToMainMenu());
             }
         }
     }

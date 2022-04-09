@@ -3,27 +3,41 @@ using UnityEngine;
 
 namespace Core.Navigation
 {
-    public class Pathfinder : MonoBehaviour
+    public class Pathfinder : MonoBehaviour, IPathfinder
     {
-        public Transform seeker, target;
-        NavigationGrid grid;
-        Node seekerNode, targetNode;
-        public GameObject GridOwner;
+        private NavigationGrid _grid;      
+        private IWalkable _walkable;
+        private Node _startNode, _targetNode;
+        private LinkedListNode<Node> _currentNode;
+        private bool _isStopped;
+        private LinkedList<Node> _path = new LinkedList<Node>();
 
-        private void Start()
+        private Vector2 Position => (Vector2)gameObject.transform.position + Vector2.down * _walkable.Size.y / 2;
+
+        public bool PathValid => _path.Count != 0 && _currentNode != null;
+        public bool PathComplete => PathValid && _currentNode.Equals(_targetNode);
+        public bool IsStopped => _isStopped;
+
+        public void Awake()
         {
-            grid = GridOwner.GetComponent<NavigationGrid>();
+            _grid = NavigationGrid.Instance;
+            _walkable = GetComponent<IWalkable>();
         }
 
-
-        public void FindPath(Vector3 startPos, Vector3 targetPos)
+        public LinkedList<Node> CalculatePath(Vector2 startPos, Vector2 targetPos)
         {
-            seekerNode = grid.NodeFromWorldPoint(startPos);
-            targetNode = grid.NodeFromWorldPoint(targetPos);
+            _startNode = _grid.NodeFromWorldPoint(startPos);
+            _targetNode = _grid.NodeFromWorldPoint(targetPos);
+
+            if (_targetNode.Obstacle || _startNode.Equals(_targetNode))
+            {
+                return new LinkedList<Node>();
+            }
 
             List<Node> openSet = new List<Node>();
             HashSet<Node> closedSet = new HashSet<Node>();
-            openSet.Add(seekerNode);
+            LinkedList<Node> path = new LinkedList<Node>();
+            openSet.Add(_startNode);
 
             while (openSet.Count > 0)
             {
@@ -32,57 +46,53 @@ namespace Core.Navigation
                 {
                     if (openSet[i].FCost <= node.FCost)
                     {
-                        if (openSet[i].hCost < node.hCost)
-                            node = openSet[i];
+                        if (openSet[i].hCost < node.hCost) node = openSet[i];
                     }
                 }
 
                 openSet.Remove(node);
                 closedSet.Add(node);
 
-                if (node == targetNode)
+                if (node.Equals(_targetNode))
                 {
-                    RetracePath(seekerNode, targetNode);
-                    return;
+                    path = RetracePath(_startNode, node);
+                    break;
                 }
 
-                foreach (Node neighbour in grid.GetNeighbors(node))
+                foreach (Node neighbor in _grid.GetNeighbors(node))
                 {
-                    if (neighbour.Obstacle || closedSet.Contains(neighbour))
+                    if (neighbor.Obstacle || closedSet.Contains(neighbor))
                     {
                         continue;
                     }
 
-                    int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
-                    if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                    int newCostToNeighbor = node.gCost + GetDistance(node, neighbor);
+                    if (newCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor))
                     {
-                        neighbour.gCost = newCostToNeighbour;
-                        neighbour.hCost = GetDistance(neighbour, targetNode);
-                        neighbour.Parent = node;
+                        neighbor.gCost = newCostToNeighbor;
+                        neighbor.hCost = GetDistance(neighbor, _targetNode);
+                        neighbor.Parent = node;
 
-                        if (!openSet.Contains(neighbour))
-                            openSet.Add(neighbour);
+                        if (!openSet.Contains(neighbor))
+                            openSet.Add(neighbor);
                     }
-                }
+                }         
             }
+            return path;
         }
-
-        private void RetracePath(Node startNode, Node endNode)
+        private LinkedList<Node> RetracePath(Node startNode, Node endNode)
         {
-            List<Node> path = new List<Node>();
+            LinkedList<Node> path = new LinkedList<Node>();
             Node currentNode = endNode;
 
-            while (currentNode != startNode)
+            while (!currentNode.Equals(startNode))
             {
-                path.Add(currentNode);
-                currentNode = currentNode.Parent;
+                path.AddLast(currentNode);
+                if (currentNode.Parent == null) break;
+                currentNode = currentNode.Parent;           
             }
-            path.Reverse();
-
-            grid.Path = path;
-
+            return path;
         }
-
         private int GetDistance(Node nodeA, Node nodeB)
         {
             int dstX = Mathf.Abs(nodeA.GridX - nodeB.GridX);
@@ -90,6 +100,38 @@ namespace Core.Navigation
 
             if (dstX > dstY) return 14 * dstY + 10 * (dstX - dstY);
             return 14 * dstX + 10 * (dstY - dstX);
+        }
+        public void SetDestination(Vector2 destination)
+        {
+            Stop();
+
+            _path = CalculatePath(gameObject.transform.position, destination);
+            if (_path.Count > 0)
+            {
+                _currentNode = _path.Last;
+                _grid.DrawPath(_path);
+            }
+        }
+        public void Move()
+        {
+            if (!PathValid || PathComplete) return;
+
+            Vector2 direction = _currentNode.Value.WorldPosition - Position;
+            float sqrDistance = direction.sqrMagnitude;
+            if (sqrDistance <= 0.01f)
+            {
+                _currentNode = _currentNode.Previous;
+            }
+
+            _walkable.Translate(direction.normalized);
+        }
+        public void Stop()
+        {
+            _isStopped = true;
+            _currentNode = null;
+            _startNode = null;
+            _targetNode = null;
+            _path.Clear();
         }
     }
 }

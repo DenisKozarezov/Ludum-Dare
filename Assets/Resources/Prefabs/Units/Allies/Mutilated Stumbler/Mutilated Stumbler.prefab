@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4223026987067769022}
   - component: {fileID: 3252914404870271033}
   - component: {fileID: 4672052090088102859}
+  - component: {fileID: 4356281082401473633}
   - component: {fileID: 2215276581671140281}
   m_Layer: 3
   m_Name: Mutilated Stumbler
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4356281082401473633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793440975529163620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &2215276581671140281
 AudioSource:
   m_ObjectHideFlags: 0

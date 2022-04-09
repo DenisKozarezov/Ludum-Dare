@@ -1,57 +1,52 @@
+using Core.Navigation;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Units.State
 {
     public class WanderState : BaseState<UnitView>
     {
-        private Vector2 _currentPoint;
+        private readonly IPathfinder Pathfinder;
         private Vector2 _initPosition;
-        private float _reachDistance;
+
+        private IReadOnlyList<Vector2> _path;
 
         public WanderState(UnitView unit, IStateMachine<UnitView> stateMachine) : base(unit, stateMachine)
         {
-       
+            Pathfinder = Unit.Pathfinder;
         }
 
-        private void OnCollided()
-        {
-            _currentPoint = GetRandomDestination();
-        }
+        //private void OnCollided()
+        //{
+        //    CalculateRandomDestination();
+        //}
 
         private Vector2 GetRandomDestination()
         {
             return _initPosition + Random.insideUnitCircle * Constants.WanderRange;
         }
-        private bool ReachedDestination(out Vector2 direction)
-        {
-            direction = _currentPoint - (Vector2)Unit.transform.position;
-            return direction.sqrMagnitude <= _reachDistance;
-        }
 
         public override void Enter()
         {
-            _reachDistance = Unit.Size.magnitude;
             _initPosition = Unit.transform.position;
-            _currentPoint = GetRandomDestination();
-            Unit.Collided += OnCollided;
+            Pathfinder.SetDestination(GetRandomDestination());
+            //Unit.Collided += OnCollided;
         }
         public override void Exit()
         {
-            Unit.Collided -= OnCollided;
+            //Unit.Collided -= OnCollided;
+            Pathfinder.Stop();
         }
         public override void Update()
         {
             if (Unit.Dead) return;
 
-#if UNITY_EDITOR
-            Debug.DrawLine(Unit.transform.position, _currentPoint, Color.yellow);
-#endif
-
-            if (ReachedDestination(out Vector2 direction))
-            {
-                _currentPoint = GetRandomDestination();
+            if (!Pathfinder.PathValid || Pathfinder.PathComplete)
+            {              
+                Pathfinder.SetDestination(GetRandomDestination());
             }
-            Unit.Translate(direction.normalized);
+
+            Pathfinder.Move();
         }
     }
 }

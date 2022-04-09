@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5184914783719107853}
   - component: {fileID: 6083165014735435477}
   - component: {fileID: -9108923251883501081}
+  - component: {fileID: -6029401030813437555}
   - component: {fileID: 4538856590739647123}
   m_Layer: 6
   m_Name: Water Elemental
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &-6029401030813437555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263374746804757268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &4538856590739647123
 AudioSource:
   m_ObjectHideFlags: 0

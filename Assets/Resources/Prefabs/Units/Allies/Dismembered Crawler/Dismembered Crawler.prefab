@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1227042566750420110}
   - component: {fileID: 1516977834849634519}
   - component: {fileID: 1825040653488488998}
+  - component: {fileID: 2532926493858604016}
   - component: {fileID: -6658498894287311110}
   m_Layer: 3
   m_Name: Dismembered Crawler
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &2532926493858604016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716899305959394553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &-6658498894287311110
 AudioSource:
   m_ObjectHideFlags: 0

@@ -15,19 +15,19 @@ namespace Core.Abilities
         [SerializeField, Min(0)]
         private float _damage;
 
-        public override void Execute()
+        public override void Execute(UnitView source, UnitView target = null)
         {
             var effect = CreateEffect();
             var sound = CreateSound();
 
             Collider2D[] result = new Collider2D[50];
-            int hits = Physics2D.OverlapCircleNonAlloc(PlayerView.Instance.transform.position, _range, result, _layer.value);
+            int hits = Physics2D.OverlapCircleNonAlloc(source.transform.position, _range, result, _layer.value);
             if (hits > 0)
             {
                 result = result.Where(x => x != null).ToArray();
-                foreach (var target in result)
+                foreach (var unit in result)
                 {
-                    target.GetComponent<UnitView>().Hit(_damage, PlayerView.Instance);
+                    unit.GetComponent<UnitView>().Hit(_damage, source);
                 }
             }
         }

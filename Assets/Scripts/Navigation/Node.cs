@@ -1,14 +1,17 @@
+using System;
 using UnityEngine;
 
 namespace Core.Navigation
 {
-    public class Node
+    public class Node : IEquatable<Node>
     {
         public int gCost, hCost;
-        public bool Obstacle;
+        public readonly bool Obstacle;
         public readonly Vector2 WorldPosition;
         public readonly int GridX, GridY;
         public Node Parent;
+
+        public int FCost => gCost + hCost;
 
         public Node(bool obstacle, Vector2 worldPos, int gridX, int gridY)
         {
@@ -18,18 +21,9 @@ namespace Core.Navigation
             GridY = gridY;
         }
 
-        public int FCost
+        public bool Equals(Node other)
         {
-            get
-            {
-                return gCost + hCost;
-            }
-
-        }
-
-        public void SetObstacle(bool obstacle)
-        {
-            Obstacle = obstacle;
+            return GridX == other.GridX && GridY == other.GridY;
         }
     }
 }

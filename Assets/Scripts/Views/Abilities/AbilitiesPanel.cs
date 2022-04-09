@@ -22,7 +22,7 @@ namespace Core.UI
 #if UNITY_EDITOR
                 Debug.Log($"<b><color=green>[ABILITIES]</color></b>: Player is executing <b><color=yellow>{ability.DisplayName}</color></b> effect.");
 #endif
-                ability.Effect.Execute();
+                ability.Effect.Execute(Units.PlayerView.Instance);
             }
         }
 

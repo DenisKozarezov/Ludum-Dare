@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -8118228337139627567}
   - component: {fileID: 4086081442869361385}
   - component: {fileID: 6502276813231722115}
+  - component: {fileID: -8292739811543931934}
   - component: {fileID: 1383807613354518641}
   m_Layer: 3
   m_Name: Main Hero
@@ -156,7 +157,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &4086081442869361385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-8292739811543931934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4786410699651650576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1383807613354518641
 AudioSource:
   m_ObjectHideFlags: 0

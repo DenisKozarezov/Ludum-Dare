@@ -3,11 +3,13 @@ using System.Collections;
 using UnityEngine;
 using Core.Models;
 using Core.Units.State;
+using Core.Navigation;
 
 namespace Core.Units
 {
     [RequireComponent(typeof(Collider2D))]
-    public class UnitView : MonoBehaviour
+    [RequireComponent(typeof(IPathfinder))]
+    public class UnitView : MonoBehaviour, IWalkable
     {
         [SerializeField]
         private UnitModel _unitData;
@@ -19,6 +21,9 @@ namespace Core.Units
         private SpriteRenderer _spriteRenderer;
         [SerializeField]
         private RangeCheckingSystem _rangeCheckingSystem;
+        private IPathfinder _pathfinder;
+
+        public IPathfinder Pathfinder => _pathfinder;
 
         [Header("Sounds")]
         [SerializeField]
@@ -49,7 +54,7 @@ namespace Core.Units
             }
         }
     
-        public Vector2 Size => GetComponent<Collider2D>().bounds.size;
+        public Vector2 Size => _spriteRenderer.bounds.size;
 
         // ============ ANIMATION KEYS ============
         protected const string IDLE_KEY = "Idle";
@@ -77,13 +82,14 @@ namespace Core.Units
 
         protected virtual void Awake()
         {
-            StateMachine = new UnitStateMachine(this);
             _rangeCheckingSystem.SetRange(Constants.AggressionRadius);
             _rangeCheckingSystem.EnemyDetected += OnEnemyDetected;
             _rangeCheckingSystem.EnableChecking(true);
         }
         protected virtual void Start()
         {
+            _pathfinder = GetComponent<IPathfinder>();
+            StateMachine = new UnitStateMachine(this);
             if (_unitData == null) return;
             StateMachine.SwitchState<WanderState>();
         }

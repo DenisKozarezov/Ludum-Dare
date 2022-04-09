@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5480673062268523922}
   - component: {fileID: 869010902994277305}
   - component: {fileID: 6110253691489622421}
+  - component: {fileID: 8321140044025242234}
   - component: {fileID: 5352692675681447744}
   m_Layer: 3
   m_Name: Skittering Hand
@@ -194,6 +195,18 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &8321140044025242234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309812380830499206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a32bfee9556bc4c8aeb5308f39e6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5352692675681447744
 AudioSource:
   m_ObjectHideFlags: 0
